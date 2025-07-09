@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />    
+    <title>Formulário de Empréstimo</title>
+  </head>
+  <body>
+    <div class="overlay-bg">
+      <div class="card-container">
+        <div class="card card-active" data-card-id="formulario" data-progress="0">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">SIMULAÇÃO</span>
+            <h2>
+              <span class="destaque">Simule agora</span> e descubra o
+              <span class="destaque">valor ideal</span> para seu empréstimo em
+              <span class="destaque">segundos</span>!
+            </h2>
+            <div class="form-container">
+              <div class="form-group">
+                <label for="name">Nome</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Digite seu nome"
+                />
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="cpf">CPF</label>
+                  <!-- on mobile open number keyboard -->
+                  <input
+                    type="text"
+                    id="cpf"
+                    name="cpf"
+                    placeholder="Digite seu CPF"
+                    inputmode="numeric"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Telefone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Digite seu telefone"
+                    inputmode="numeric"
+                  />
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="birthdate">Data de nascimento</label>
+                  <input
+                    type="text"
+                    id="birthdate"
+                    name="birthdate"
+                    maxlength="10"
+                    pattern="\d{2}/\d{2}/\d{4}"
+                    placeholder="Digite sua data de nascimento"
+                    inputmode="numeric"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="cep">CEP</label>
+                  <input
+                    type="text"
+                    id="cep"
+                    name="cep"
+                    maxlength="9"
+                    pattern="\d{5}-?\d{3}"
+                    placeholder="Digite seu CEP"
+                    inputmode="numeric"
+                  />
+                </div>
+              </div>
+              <div class="form-group" style="margin-top: 8px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.90rem; color: #3a3e48;">
+                  <input type="checkbox" id="checkbox-titular" style="width: 18px; height: 18px; accent-color: var(--primary-color)" />
+                  Declaro que sou o titular da conta de energia
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="next-btn" disabled>Avançar</button>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="ofertas" data-progress="50">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">VALOR</span>
+            <h2>
+              Selecione o <span class="destaque">valor ideal</span> para seu
+              <span class="destaque">empréstimo</span>
+            </h2>
+            <div class="slider-group">
+              <label class="slider-title">
+                <span class="label-text">Valor</span>
+                <span id="budget-value">R$ 500</span>
+              </label>
+              <div class="slider-wrapper">
+                <div class="slider-visual" id="budget-slider-visual">
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  value="1"
+                  id="budget-slider"
+                  class="slider-range"
+                />
+                <div class="slider-labels">
+                  <span>R$800</span><span>R$1.000</span><span>R$1.500</span
+                  ><span>R$2.000</span><span>R$3.000</span>
+                </div>
+              </div>
+            </div>
+            <div class="slider-group">
+              <label class="slider-title">
+                <span class="label-text">Parcelas</span>
+                <span id="duration-value">6</span>
+              </label>
+              <div class="slider-wrapper">
+                <div class="slider-visual" id="duration-slider-visual">
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                  <span class="segment"></span>
+                  <span class="dot"></span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  value="2"
+                  id="duration-slider"
+                  class="slider-range"
+                />
+                <div class="slider-labels">
+                  <span>15</span><span>16</span><span>18</span><span>20</span
+                  ><span>24</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <!-- <button class="back-btn">Voltar</button> -->
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="resumo" data-progress="50">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">CONFIRMAÇÃO</span>
+            <h2>
+              <span class="destaque">Confirme</span> sua solicitação
+            </h2>
+            <p style="margin-bottom: 24px; line-height: 1.6; color: #6b7280;">
+              Por favor, revise os detalhes do seu empréstimo antes de continuar.
+            </p>
+            <div class="summary-details">
+                <div class="summary-item">
+                    <span class="summary-label">Valor do Empréstimo</span>
+                    <span class="summary-value" id="resumo-valor"></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Condição de Pagamento</span>
+                    <span class="summary-value" id="resumo-parcelas"></span>
+                </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="back-btn">Voltar</button>
+              <button class="next-btn">Confirmar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="loading" data-progress="25">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">PROCESSANDO</span>
+            <h2>
+              <span class="destaque">Analisando</span> sua solicitação...
+            </h2>
+            <div class="loading-container">
+              <div class="loading-spinner"></div>
+              <div class="loading-steps">
+                <div class="loading-step active">
+                  <span class="step-icon">✓</span>
+                  <span class="step-text">Verificando dados pessoais</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Calculando condições ideais</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Preparando ofertas personalizadas</span>
+                </div>
+              </div>
+              <p class="loading-text">
+                Isso pode levar alguns segundos. Estamos trabalhando para encontrar as melhores condições para você!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="loading-continuar" data-progress="25">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">CARREGANDO</span>
+            <h2>
+              <span class="destaque">Recuperando</span> sua simulação...
+            </h2>
+            <div class="loading-container">
+              <div class="loading-spinner"></div>
+              <div class="loading-steps">
+                <div class="loading-step active">
+                  <span class="step-icon">✓</span>
+                  <span class="step-text">Verificando proposta salva</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Carregando dados da simulação</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Preparando para continuar</span>
+                </div>
+              </div>
+              <p class="loading-text">
+                Estamos recuperando seus dados para continuar de onde você parou!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="loading-salvar" data-progress="75">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">SALVANDO</span>
+            <h2>
+              <span class="destaque">Finalizando</span> sua solicitação...
+            </h2>
+            <div class="loading-container">
+              <div class="loading-spinner"></div>
+              <div class="loading-steps">
+                <div class="loading-step active">
+                  <span class="step-icon">✓</span>
+                  <span class="step-text">Validando dados da conta</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Processando solicitação</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Finalizando contratação</span>
+                </div>
+              </div>
+              <p class="loading-text">
+                Estamos finalizando sua solicitação de empréstimo!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="loading-energia" data-progress="25">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">VALIDANDO</span>
+            <h2>
+              <span class="destaque">Validando</span> dados da energia...
+            </h2>
+            <div class="loading-container">
+              <div class="loading-spinner"></div>
+              <div class="loading-steps">
+                <div class="loading-step active">
+                  <span class="step-icon">✓</span>
+                  <span class="step-text">Validando dados da conta</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Calculando condições</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Preparando ofertas</span>
+                </div>
+              </div>
+              <p class="loading-text">
+                Estamos validando seus dados e preparando as melhores ofertas!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="reprovado" data-progress="0">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">NÃO APROVADO</span>
+            <h2>
+              Infelizmente não foi possível
+              <span class="destaque">aprovar</span> seu empréstimo
+            </h2>
+            <div class="result-container">
+              <div class="result-card rejected">
+                <div class="result-icon">✗</div>
+                <div class="result-info">
+                  <h3>Motivo</h3>
+                  <p class="result-message" >Nenhuma oferta disponível para o seu perfil no momento</p>
+                </div>
+              </div>             
+            </div>
+            <div class="result-actions" style="flex-direction: column; gap: 12px; margin-top: 32px;">
+              <button class="primary-btn" id="btn-reprovado-entendi">Entendi</button>
+              <button class="secondary-btn" id="btn-reprovado-falar">Falar com Consultor</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="em-analise" data-progress="50">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">EM ANÁLISE</span>
+            <h2>
+              Sua proposta está em <span class="destaque">análise</span>
+            </h2>
+            <div class="result-container">
+              <div class="result-card pending">
+                <div class="result-icon">⏳</div>
+                <div class="result-info">
+                  <h3>Status da Proposta</h3>
+                  <p class="result-message">
+                    Estamos analisando seus dados. A aprovação pode levar até <strong>24 horas</strong>!
+                  </p>
+                </div>
+              </div>             
+            </div>
+            <ul style="padding: 0 0 0 18px; color: #6b7280; font-size: 1.05rem; line-height: 1.7;">
+              <li>Conferência dos dados</li>
+              <li>Pagamento em até 24 horas após aprovação</li>
+              <li>Avisaremos você ao final da análise</li>
+            </ul>
+            <p style="margin-top: 18px; font-weight: 600; color: #222; text-align: center; font-size: 1rem;">
+              Fique tranquilo! Você será avisado assim que a análise terminar.
+            </p>
+          </div>
+          <div class="card-footer">
+              <div class="actions">
+                <button class="back-btn">Voltar ao Início</button>
+              </div>            
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="continuar" data-progress="0">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">CONTINUAR</span>
+            <h2 style="margin-bottom: 16px;">
+              Parabéns! Você já deu o <span class="destaque">primeiro passo</span> para o seu empréstimo! 🎉
+            </h2>
+            <p style="margin-bottom: 32px; line-height: 1.6; color: #6b7280;">
+              <strong>Você está quase lá!</strong><br>
+              • Sua solicitação já está sendo processada<br>
+              • Falta apenas finalizar para receber seu empréstimo<br>
+              • Vamos continuar de onde você parou? 
+            </p>
+            <div class="result-actions">
+              <button class="primary-btn" id="btn-continuar">Continuar Agora</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="sucesso" data-progress="75">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">SUCESSO</span>
+            <h2>
+              Parabéns! Seu<span class="destaque"> empréstimo</span> foi solicitado com <span class="destaque">sucesso</span>! 🎉
+            </h2>
+            <p style="margin-bottom: 24px; line-height: 1.6; color: #6b7280;">
+              <strong>Próximos passos:</strong><br>
+              • Um consultor especializado entrará em contato em até 24h<br>
+              • Ou você pode continuar agora mesmo preenchendo os dados restantes
+            </p>
+            <div class="result-actions" style="flex-direction: column; gap: 12px;">
+              <button class="primary-btn" id="btn-continuar-agora">Continuar Agora</button>
+              <button class="secondary-btn" id="btn-aguardar">Aguardar Consultor</button>
+            </div>
+          </div>
+        </div>        
+        <div class="card card-behind" data-card-id="finalizar-parcial" data-progress="100">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">FINALIZAR</span>
+            <h2>
+              Obrigado por escolher a <span class="destaque">CrediConfiance</span>!
+            </h2>
+            <p style="margin-bottom: 24px; line-height: 1.6; color: #6b7280;">
+              <strong>Próximos passos:</strong><br>
+              • Um consultor especializado entrará em contato em até 24h<br>
+              • Ele irá finalizar a contratação e tirar todas as suas dúvidas<br>
+              • Seu empréstimo será aprovado após a validação dos documentos
+            </p>
+            <div class="result-actions">
+              <button class="primary-btn" id="btn-finalizar">Entendi</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="dados-energia" data-progress="75">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">CONTA LUZ</span>
+            <h2>
+              <span class="destaque">Dados</span> da sua conta de energia
+            </h2>
+            <div class="form-container">
+              <div class="form-group">
+                <label for="numero-da-conta">Seu Código </label>
+                <input type="text" id="numero-da-conta" name="numero-da-conta" placeholder="Digite o número da conta">
+              </div>
+              <div class="form-group">
+                <label for="codigo-de-seguranca">Lote</label>
+                <input type="text" id="codigo-de-seguranca" name="codigo-de-seguranca" placeholder="Digite o código de segurança">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="dados-energia-invalidos" data-progress="75">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">DADOS INVÁLIDOS</span>
+            <h2>
+              Os dados da sua <span class="destaque">conta de energia</span> estão incorretos
+            </h2>
+            <div class="result-container">
+              <div class="result-card pending">
+                <div class="result-icon">⚠</div>
+                <div class="result-info">
+                  <h3>Verifique os dados</h3>
+                  <p class="result-message">
+                    Verifique se os dados estão corretos e tente novamente.
+                  </p>
+                </div>
+              </div>             
+            </div>
+            <ul style="padding: 0 0 0 18px; color: #6b7280; font-size: 0.95rem; line-height: 1.7; margin-top: 10px;">
+              <li>
+                <strong>Importante:</strong> somente o <strong>titular da conta de energia</strong> pode solicitar um empréstimo.
+              </li>
+            </ul>
+            <div class="result-actions" style="flex-direction: column; gap: 12px; margin-top: 32px;">
+              <button class="primary-btn" id="btn-tentar-novamente">Tentar Novamente</button>
+              <button class="secondary-btn" id="btn-voltar-formulario">Finalizar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="cancelado" data-progress="0">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">CANCELADO</span>
+            <h2>
+              Sua solicitação foi <span class="destaque">cancelada</span>
+            </h2>
+            <div class="result-container">
+              <div class="result-card rejected">
+                <div class="result-icon">!</div>
+                <div class="result-info">
+                  <h3>Proposta Cancelada</h3>
+                  <p class="result-message">Infelizmente sua proposta foi cancelada. Você pode tentar novamente se desejar.</p>
+                </div>
+              </div>
+            </div>
+            <div class="result-actions" style="margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+              <button class="primary-btn" id="btn-refazer-simulacao">Tentar novamente</button>
+              <button class="secondary-btn" id="btn-finalizar-vazio">Finalizar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-behind" data-card-id="nao-encontrada" data-progress="0">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">NÃO ENCONTRADA</span>
+            <h2>
+              Não foi possível encontrar sua simulação
+            </h2>
+            <div class="result-container">
+              <div class="result-card rejected">
+                <div class="result-icon">?</div>
+                <div class="result-info">
+                  <h3>Simulação não encontrada</h3>
+                  <p class="result-message">Não localizamos nenhuma simulação ativa para continuar. Você pode iniciar uma nova simulação normalmente.</p>
+                </div>
+              </div>
+            </div>
+            <div class="result-actions" style="margin-top: 32px; display: flex; justify-content: center;">
+              <button class="primary-btn" id="btn-nao-encontrada-entendi">Entendi</button>
+            </div>
+          </div>
+        </div>
+
+        <!-------------------------------- formulario final -------------------------------->
+        
+        <div class="card card-behind" data-card-id="formulario-dados-pessoais" data-progress="60">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">DADOS PESSOAIS</span>
+            <h2>Preencha seus <span class="destaque">dados pessoais</span></h2>
+            <div class="form-container" id="form-dados-pessoais-1" autocomplete="off">
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="nome-completo">Nome completo</label>
+                  <input type="text" id="nome-completo" name="nome-completo" >
+                </div>
+                <div class="form-group">
+                  <label for="sexo">Sexo</label>
+                  <select id="sexo" name="sexo" required>
+                    <option value="">Selecione</option>
+                    <option value="0">Masculino</option>
+                    <option value="1">Feminino</option>
+                    <option value="3">Outro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="nome-mae">Nome da Mãe</label>
+                <input type="text" id="nome-mae" name="nome-mae" required>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="grau-instrucao">Escolaridade</label>
+                  <select id="grau-instrucao" name="grau-instrucao" required>
+                    <option value="">Selecione</option>
+                    <option value="1">Fundamental Incompleto</option>
+                    <option value="2">Fundamental Completo</option>
+                    <option value="3">Médio Incompleto</option>
+                    <option value="4">Médio Completo</option>
+                    <option value="5">Graduação</option>
+                    <option value="6">Pós-Graduação</option>
+                    <option value="7">Mestrado</option>
+                    <option value="8">Doutorado</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="estado-civil">Estado Civil</label>
+                  <select id="estado-civil" name="estado-civil" required>
+                    <option value="">Selecione</option>
+                    <option value="0">Solteiro(a)</option>
+                    <option value="1">Casado(a)</option>
+                    <option value="2">Divorciado(a)</option>
+                    <option value="3">Viúvo(a)</option>
+                    <option value="4">Separado(a)</option>
+                  </select>
+                </div>
+              </div>              
+              <div class="form-group" id="conjuge-group" style="display: none;">
+                <label for="nome-conjuge">Nome do Cônjuge</label>
+                <input type="text" id="nome-conjuge" name="nome-conjuge">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card card-behind" data-card-id="formulario-rg-naturalidade" data-progress="70">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">DOCUMENTO E NATURALIDADE</span>
+            <h2>Preencha os <span class="destaque">dados do RG</span> e <span class="destaque">naturalidade</span></h2>
+            <div class="form-container" id="form-rg-naturalidade" autocomplete="off">
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="rg">RG</label>
+                  <input type="text" id="rg" name="rg" maxlength="12" required inputmode="numeric">
+                </div>
+                <div class="form-group">
+                  <label for="rg-emissor">Órgão Emissor</label>
+                  <select name="rg-emissor" id="rg-emissor" data-search-select="true">
+                    <option value="" selected>Selecionar</option>
+                    <option value="ABNC">ABNC - Academia Brasileira de Neurocirurgia</option>
+                    <option value="AGU">AGU - Advocacia-Geral da União</option>
+                    <option value="ANAC">ANAC - Agência Nacional de Aviação Civil</option>
+                    <option value="CAER">CAER - Clube de Aeronáutica</option>
+                    <option value="CAU">CAU - Conselho de Arquitetura e Urbanismo</option>
+                    <option value="CBM">CBM - Corpo de Bombeiro Militar</option>
+                    <option value="CFA">CFA - Conselho Federal Administração</option>
+                    <option value="CFB">CFB - Conselho Federal de Biblioteconomia</option>
+                    <option value="CFBIO">CFBIO - Conselho Federal de Biologia</option>
+                    <option value="CFBM">CFBM - Conselho Federal de Biomedicina</option>
+                    <option value="CFC">CFC - Conselho Federal de Contabilidade</option>
+                    <option value="CFESS">CFESS - Conselho Federal de Serviço Social</option>
+                    <option value="CFF">CFF - Conselho Regional de Farmácia</option>
+                    <option value="CFFA">CFFA - Conselho Federal de Fonoaudiologia</option>
+                    <option value="CFM">CFM - Conselho Federal de Medicina</option>
+                    <option value="CFMV">CFMV - Conselho Federal de Medicina Veterinária</option>
+                    <option value="CFN">CFN - Conselho Federal de Nutrição</option>
+                    <option value="CFO">CFO - Conselho Federal de Odontologia</option>
+                    <option value="CFP">CFP - Conselho Federal de Psicologia</option>
+                    <option value="CFQ">CFQ - Conselho Regional de Química</option>
+                    <option value="CFT">CFT - Conselho Federal dos Técnicos Industriais</option>
+                    <option value="CFTA">CFTA - Conselho Federal dos Técnicos Agrícolas</option>
+                    <option value="CGPI">CGPI - Coordenação Geral de Privilégios e Imunidades</option>
+                    <option value="CGPMAF">CGPMAF - Coordenadoria Geral de Polícia Marítima, Aeronáutica e de Fronteiras</option>
+                    <option value="CIPC">CIPC - Centro de Inteligência da Polícia Civil</option>
+                    <option value="CNIG">CNIG - Conselho Nacional de Imigração</option>
+                    <option value="CNT">CNT - Confederação Nacional do Transporte</option>
+                    <option value="CNTV">CNTV - Confederação Nacional de Vigilantes & Prestadores de Serviços</option>
+                    <option value="COFECI">COFECI - Conselho Federal de Corretores de Imóveis</option>
+                    <option value="COFECON">COFECON - Conselho Federal de Economia</option>
+                    <option value="COFEM">COFEM - Conselho Federal de Museologia</option>
+                    <option value="COFEN">COFEN - Conselho Federal de Enfermagem</option>
+                    <option value="COFFITO">COFFITO - Conselho Regional de Fisioterapia e Terapia Ocupacional</option>
+                    <option value="COMAER">COMAER - Comando da Aeronáutica</option>
+                    <option value="CONFE">CONFE - Conselho Federal de Estatística</option>
+                    <option value="CONFEA">CONFEA - Conselho Federal de Engenharia e Agronomia</option>
+                    <option value="CONFEF">CONFEF - Conselho Federal de Educação Física</option>
+                    <option value="CONFERE">CONFERE - Conselho Federal dos Representantes Comerciais</option>
+                    <option value="CONRE">CONRE - Conselho Regional de Estatística</option>
+                    <option value="CONRERP">CONRERP - Conselho Federal de Profissionais de Relações Públicas</option>
+                    <option value="CORE">CORE - Conselho Regional dos Representantes Comerciais</option>
+                    <option value="CORECON">CORECON - Conselho Regional de Economia</option>
+                    <option value="COREM">COREM - Conselho Regional de Museologia</option>
+                    <option value="COREN">COREN - Conselho Regional de Enfermagem</option>
+                    <option value="CRA">CRA - Conselho Regional de Administração</option>
+                    <option value="CRAS">CRAS - Centro de Referência de Assistência Social</option>
+                    <option value="CRB">CRB - Conselho Regional de Biblioteconomia</option>
+                    <option value="CRBIO">CRBIO - Conselho Regional de Biologia</option>
+                    <option value="CRBM">CRBM - Conselho Regional de Biomedicina</option>
+                    <option value="CRC">CRC - Conselho Regional de Contabilidade</option>
+                    <option value="CREA">CREA - Conselho Regional de Engenharia e Agronomia</option>
+                    <option value="CRECI">CRECI - Conselho Regional de Corretores de Imóveis</option>
+                    <option value="CREF">CREF - Conselho Regional de Educação Física</option>
+                    <option value="CREFITO">CREFITO - Conselho Regional de Fisioterapia e Terapia Ocupacional</option>
+                    <option value="CRESS">CRESS - Conselho Regional de Serviço Social</option>
+                    <option value="CRF">CRF - Conselho Regional de Farmácia</option>
+                    <option value="CRFA">CRFA - Conselho Regional de Fonoaudiologia</option>
+                    <option value="CRM">CRM - Conselho Regional de Medicina</option>
+                    <option value="CRMV">CRMV - Conselho Regional de Medicina Veterinária</option>
+                    <option value="CRN">CRN - Conselho Regional de Nutrição</option>
+                    <option value="CRO">CRO - Conselho Regional de Odontologia</option>
+                    <option value="CRP">CRP - Conselho Regional de Psicologia</option>
+                    <option value="CRPRE">CRPRE - Conselho Regional de Profissionais de Relações Públicas</option>
+                    <option value="CRQ">CRQ - Conselho Regional de Química</option>
+                    <option value="CRT">CRT - Conselho Regional dos Técnicos Industriais</option>
+                    <option value="CRTA">CRTA - Conselho Regional de Técnicos de Administração</option>
+                    <option value="CTPS">CTPS - Carteira de Trabalho e Previdência Social</option>
+                    <option value="CV">CV - Cartório Civil</option>
+                    <option value="DELEMIG">DELEMIG - Delegacia de Polícia de Imigração</option>
+                    <option value="DETRAN">DETRAN - Departamento Estadual de Trânsito</option>
+                    <option value="DGPC">DGPC - Diretoria Geral da Polícia Civil</option>
+                    <option value="DIC">DIC - Diretoria de Identificação Civil</option>
+                    <option value="DICC">DICC - Diretoria de Identificação Civil e Criminal</option>
+                    <option value="DIREX">DIREX - Diretoria Executiva</option>
+                    <option value="DPF">DPF - Departamento de Polícia Federal</option>
+                    <option value="DPMAF">DPMAF - Divisão de Polícia Marítima, Aérea e de Fronteiras</option>
+                    <option value="DPT">DPT - Departamento de Polícia Técnica Geral</option>
+                    <option value="DPTC">DPTC - Departamento de Polícia Técnico Científica</option>
+                    <option value="DREX">DREX - Delegacia Regional Executiva</option>
+                    <option value="DRT">DRT - Delegacia Regional do Trabalho</option>
+                    <option value="EB">EB - Exército Brasileiro</option>
+                    <option value="FAB">FAB - Força Aérea Brasileira</option>
+                    <option value="FENAJ">FENAJ - Federação Nacional dos Jornalistas</option>
+                    <option value="FGTS">FGTS - Fundo de Garantia do Tempo de Serviço</option>
+                    <option value="FIPE">FIPE - Fundação Instituto de Pesquisas Econômicas</option>
+                    <option value="FLS">FLS - Fundação Lyndolpho Silva</option>
+                    <option value="FUNAI">FUNAI - Fundação Nacional do Índio</option>
+                    <option value="GEJSP">GEJSP - Gerência de Estado de Justiça, Segurança Pública e Cidadania</option>
+                    <option value="GEJSPC">GEJSPC - Gerência de Estado de Justiça, Segurança Pública e Cidadania</option>
+                    <option value="GEJUSPC">GEJUSPC - Gerência de Estado de Justiça, Segurança Pública e Cidadania</option>
+                    <option value="GESP">GESP - Gerência de Estado de Segurança Pública</option>
+                    <option value="GOVGO">GOVGO - Governo do Estado de Goiás</option>
+                    <option value="I">I CLA - Carteira de Identidade Classista</option>
+                    <option value="ICP">ICP - Instituto de Polícia Científica</option>
+                    <option value="IDAMP">IDAMP - Instituto de Identificação Dr. Aroldo Mendes Paiva</option>
+                    <option value="IFP">IFP - Instituto Félix Pacheco</option>
+                    <option value="IGP">IGP - Instituto Geral de Perícias</option>
+                    <option value="IIACM">IIACM - Instituto de Identificação Aderson Conceição de Melo</option>
+                    <option value="IICC">IICC - Instituto de Identificação Civil e Criminal</option>
+                    <option value="IICCECF">IICCECF - Instituto de Identificação Civil e Criminal Engrácia da Costa Francisco</option>
+                    <option value="IICM">IICM - Instituto de Identificação Carlos Menezes</option>
+                    <option value="IIGP">IIGP - Instituto de Identificação Gonçalo Pereira</option>
+                    <option value="IIJDM">IIJDM - Instituto de Identificação João de Deus Martins</option>
+                    <option value="IIPC">IIPC - Instituto de Identificação da Polícia Civil</option>
+                    <option value="IIPC">IIPC - Instituto de Identificação Pedro Mello</option>
+                    <option value="IIRGD">IIRGD - Instituto de Identificação Ricardo Gumbleton Daunt</option>
+                    <option value="IIRHM">IIRHM - Instituto de Identificação Raimundo Hermínio de Melo</option>
+                    <option value="IITB">IITB - Instituto de Identificação Tavares Buril</option>
+                    <option value="IML">IML - Instituto Médico-Legal</option>
+                    <option value="INI">INI - Instituto Nacional de Identificação</option>
+                    <option value="IPF">IPF - Instituto Pereira Faustino</option>
+                    <option value="ITCP">ITCP - Instituto Técnico-Científico de Perícia</option>
+                    <option value="ITEP">ITEP - Instituto Técnico-Científico de Perícia</option>
+                    <option value="MAER">MAER - Ministério da Aeronáutica</option>
+                    <option value="MB">MB - Marinha do Brasil</option>
+                    <option value="MD">MD - Ministério da Defesa</option>
+                    <option value="MDS">MDS - Ministério da Cidadania</option>
+                    <option value="MEC">MEC - Ministério da Educação e Cultura</option>
+                    <option value="MEX">MEX - Ministério do Exército</option>
+                    <option value="MINDEF">MINDEF - Ministério da Defesa</option>
+                    <option value="MJ">MJ - Ministério da Justiça</option>
+                    <option value="MM">MM - Ministério da Marinha</option>
+                    <option value="MMA">MMA - Ministério da Marinha</option>
+                    <option value="MPAS">MPAS - Ministério da Previdência e Assistência Social</option>
+                    <option value="MPE">MPE - Ministério Público Estadual</option>
+                    <option value="MPF">MPF - Ministério Público Federal</option>
+                    <option value="MPT">MPT - Ministério Público do Trabalho</option>
+                    <option value="MRE">MRE - Ministério das Relações Exteriores</option>
+                    <option value="MT">MT - Ministério do Trabalho</option>
+                    <option value="MTE">MTE - Ministério da Economia</option>
+                    <option value="MTPS">MTPS - Ministério do Trabalho e Previdência Social</option>
+                    <option value="NUMIG">NUMIG - Núcleo de Polícia de Imigração</option>
+                    <option value="OAB">OAB - Ordem dos Advogados do Brasil</option>
+                    <option value="OMB">OMB - Ordens dos Músicos do Brasil</option>
+                    <option value="PC">PC - Polícia Civil</option>
+                    <option value="PF">PF - Polícia Federal</option>
+                    <option value="PGFN">PGFN - Procuradoria Geral da Fazenda Nacional</option>
+                    <option value="PM">PM - Polícia Militar</option>
+                    <option value="POLITEC">POLITEC - Perícia Oficial e Identificação Técnica</option>
+                    <option value="PRF">PRF - Polícia Rodoviária Federal</option>
+                    <option value="PTC">PTC - Polícia Tecnico-Científica</option>
+                    <option value="SCC">SCC - Secretaria de Estado da Casa Civil</option>
+                    <option value="SCJDS">SCJDS - Secretaria Coordenadora de Justiça e Defesa Social</option>
+                    <option value="SDS">SDS - Secretaria de Defesa Social</option>
+                    <option value="SECC">SECC - Secretaria de Estado da Casa Civil</option>
+                    <option value="SECCDE">SECCDE - Secretaria de Estado da Casa Civil e Desenvolvimento Econômico</option>
+                    <option value="SEDS">SEDS - Secretaria de Estado da Defesa Social</option>
+                    <option value="SEGUP">SEGUP - Secretaria de Estado da Segurança Pública e da Defesa Social</option>
+                    <option value="SEJSP">SEJSP - Secretaria de Estado de Justiça e Segurança Pública</option>
+                    <option value="SEJUC">SEJUC - Secretaria de Estado da Justica</option>
+                    <option value="SEJUSP">SEJUSP - Secretaria de Estado de Justiça e Segurança Pública</option>
+                    <option value="SEPC">SEPC - Secretaria de Estado da Polícia Civil</option>
+                    <option value="SEPOL">SEPOL - Secretaria de Estado de Polícia Civil</option>
+                    <option value="SES">SES - Secretaria de Estado da Segurança</option>
+                    <option value="SESC">SESC - Secretaria de Estado da Segurança e Cidadania</option>
+                    <option value="SESDC">SESDC - Secretaria de Estado da Segurança, Defesa e Cidadania</option>
+                    <option value="SESDEC">SESDEC - Secretaria de Estado da Segurança, Defesa e Cidadania</option>
+                    <option value="SESEG">SESEG - Secretaria Estadual de Segurança</option>
+                    <option value="SESP">SESP - Secretaria de Estado da Segurança Pública</option>
+                    <option value="SESPAP">SESPAP - Secretaria de Estado da Segurança Pública e Administração Penitenciária</option>
+                    <option value="SESPDC">SESPDC - Secretaria de Estado de Segurança Publica e Defesa do Cidadão</option>
+                    <option value="SESPDS">SESPDS - Secretaria de Estado de Segurança Pública e Defesa Social</option>
+                    <option value="SGPC">SGPC - Superintendência Geral de Polícia Civil</option>
+                    <option value="SGPJ">SGPJ - Superintendência Geral de Polícia Judiciária</option>
+                    <option value="SIM">SIM - Serviço de Identificação da Marinha</option>
+                    <option value="SJ">SJ - Secretaria da Justiça</option>
+                    <option value="SJCDH">SJCDH - Secretaria da Justiça e dos Direitos Humanos</option>
+                    <option value="SJDS">SJDS - Secretaria Coordenadora de Justiça e Defesa Social</option>
+                    <option value="SJS">SJS - Secretaria da Justiça e Segurança</option>
+                    <option value="SJTC">SJTC - Secretaria da Justiça do Trabalho e Cidadania</option>
+                    <option value="SJTS">SJTS - Secretaria da Justiça do Trabalho e Segurança</option>
+                    <option value="SNJ">SNJ - Secretaria Nacional de Justiça / Departamento de Estrangeiros</option>
+                    <option value="SPMAF">SPMAF - Serviço de Polícia Marítima, Aérea e de Fronteiras</option>
+                    <option value="SPTC">SPTC - Secretaria de Polícia Técnico-Científica</option>
+                    <option value="SRDPF">SRDPF - Superintendência Regional do Departamento de Polícia Federal</option>
+                    <option value="SRF">SRF - Receita Federal</option>
+                    <option value="SRTE">SRTE - Superintendência Regional do Trabalho</option>
+                    <option value="SSDC">SSDC - Secretaria da Segurança, Defesa e Cidadania</option>
+                    <option value="SSDS">SSDS - Secretaria da Segurança e da Defesa Social</option>
+                    <option value="SSI">SSI - Secretaria de Segurança e Informações</option>
+                    <option value="SSP">SSP - Secretaria de Segurança Pública</option>
+                    <option value="SSPCGP">SSPCGP - Secretaria de Segurança Pública e Coordenadoria Geral de Perícias</option>
+                    <option value="SSPDC">SSPDC - Secretaria de Segurança Pública e Defesa do Cidadão</option>
+                    <option value="SSPDS">SSPDS - Secretaria de Segurança Pública e Defesa Social</option>
+                    <option value="SSPPC">SSPPC - Secretaria de Segurança Pública Polícia Civil</option>
+                    <option value="SUSEP">SUSEP - Superintendência de Seguros Privados</option>
+                    <option value="SUSEPE">SUSEPE - Superintendência dos Serviços Penitenciários</option>
+                    <option value="TJ">TJ - Tribunal de Justiça</option>
+                    <option value="TJAEM">TJAEM - Tribunal Arbitral e Mediação dos Estados Brasileiros</option>
+                    <option value="TRE">TRE - Tribunal Regional Eleitoral</option>
+                    <option value="TRF">TRF - Tribunal Regional Federal</option>
+                    <option value="TSE">TSE - Tribunal Superior Eleitoral</option>
+                    <option value="XXX">XXX - Orgão Estrangeiro</option>                  
+                  </select>
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="rg-uf">Estado do RG</label>
+                  <select id="rg-uf" name="rg-uf" data-search-select="true" data-estado-select="true" required>
+                    <option value="">Selecione</option>
+                    <!-- opções de estados aqui -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="rg-emissao">Data de Emissão</label>
+                  <input type="text" id="rg-emissao" name="rg-emissao" required inputmode="numeric">
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="naturalidade-uf">Estado de Nascimento</label>
+                  <select id="naturalidade-uf" name="naturalidade-uf" data-search-select="true" data-estado-select="true" required>
+                    <option value="">Selecione</option>
+                    <!-- opções de estados aqui -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="naturalidade-cidade">Cidade de Nascimento</label>
+                  <select id="naturalidade-cidade" name="naturalidade-cidade" data-search-select="true" required>
+                    <option value="">Selecione</option>
+                    <!-- opções de cidades (carregadas via JS ao selecionar UF) -->
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="back-btn">Voltar</button>
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-behind" data-card-id="formulario-endereco" data-progress="80">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">ENDEREÇO</span>
+            <h2>Preencha seu <span class="destaque">endereço</span></h2>
+            <div class="form-container" id="form-endereco" autocomplete="off">
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="cep-endereco">CEP</label>
+                  <input type="text" id="cep-endereco" name="cep" maxlength="9" required readonly>
+                </div>
+                <div class="form-group">
+                  <label for="logradouro-endereco">Logradouro</label>
+                  <input type="text" id="logradouro-endereco" name="logradouro" required>
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="numero-endereco">Número</label>
+                  <input type="number" id="numero-endereco" name="numero" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="bairro-endereco">Bairro</label>
+                  <input type="text" id="bairro-endereco" name="bairro" required>
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="complemento-endereco">Complemento <span style="font-weight:normal;">(opcional)</span></label>
+                  <input type="text" id="complemento-endereco" name="complemento">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="back-btn">Voltar</button>
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card card-behind" data-card-id="formulario-bancario" data-progress="90">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">DADOS BANCÁRIOS</span>
+            <h2>Informe seus <span class="destaque">dados bancários</span></h2>
+            <div class="form-container" id="form-bancario" autocomplete="off">
+              <div class="form-groups-row">
+                <div class="form-group" style="flex: 2;">
+                  <label for="banco-id">Banco</label>
+                  <select id="banco-id" name="banco-id" data-search-select="true" required>
+                    <option value="">Selecione</option>
+                     <option value="001">BANCO DO BRASIL</option>
+                     <option value="237">BRADESCO</option>
+                     <option value="104">CAIXA</option>
+                     <option value="341">ITAU</option>
+                     <option value="033">SANTANDER</option>
+                     <option value="644">321 SCD S.A.</option>
+                     <option value="406">ACCREDITO - SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="332">ACESSO SOLUÇÕES DE PAGAMENTO S.A.</option>
+                     <option value="599">AGORACRED S/A SCFI</option>
+                     <option value="349">AL5 S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="572">ALL IN CRED SCD S.A.</option>
+                     <option value="594">ASA SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="461">ASAAS GESTÃO FINANCEIRA INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="527">ATICCA SCD S.A.</option>
+                     <option value="246">BANCO ABC BRASIL S.A.</option>
+                     <option value="075">BANCO ABN AMRO S.A.</option>
+                     <option value="121">BANCO AGIBANK S.A.</option>
+                     <option value="025">BANCO ALFA S.A.</option>
+                     <option value="065">BANCO ANDBANK (BRASIL) S.A.</option>
+                     <option value="213">BANCO ARBI S.A.</option>
+                     <option value="096">BANCO B3 S.A.</option>
+                     <option value="024">BANCO BANDEPE S.A.</option>
+                     <option value="330">BANCO BARI DE INVESTIMENTOS E FINANCIAMENTOS S.A.</option>
+                     <option value="334">BANCO BESA S.A.</option>
+                     <option value="318">BANCO BMG S.A.</option>
+                     <option value="752">BANCO BNP PARIBAS BRASIL S.A.</option>
+                     <option value="107">BANCO BOCOM BBM S.A.</option>
+                     <option value="063">BANCO BRADESCARD S.A.</option>
+                     <option value="036">BANCO BRADESCO BBI S.A.</option>
+                     <option value="122">BANCO BRADESCO BERJ S.A.</option>
+                     <option value="394">BANCO BRADESCO FINANCIAMENTOS S.A.</option>
+                     <option value="378">BANCO BRASILEIRO DE CRÉDITO SOCIEDADE ANÔNIMA</option>
+                     <option value="218">BANCO BS2 S.A.</option>
+                     <option value="208">BANCO BTG PACTUAL S.A.</option>
+                     <option value="413">BANCO BV S.A.</option>
+                     <option value="626">BANCO C6 CONSIGNADO S.A.</option>
+                     <option value="336">BANCO C6 S.A.</option>
+                     <option value="473">BANCO CAIXA GERAL - BRASIL S.A.</option>
+                     <option value="040">BANCO CARGILL S.A.</option>
+                     <option value="266">BANCO CEDULA S.A.</option>
+                     <option value="233">BANCO CIFRA S.A.</option>
+                     <option value="745">BANCO CITIBANK S.A.</option>
+                     <option value="241">BANCO CLASSICO S.A.</option>
+                     <option value="756">BANCO COOPERATIVO SICOOB S.A. - BANCO SICOOB</option>
+                     <option value="748">BANCO COOPERATIVO SICREDI S.A.</option>
+                     <option value="222">BANCO CRÉDIT AGRICOLE BRASIL S.A.</option>
+                     <option value="505">BANCO CREDIT SUISSE (BRASIL) S.A.</option>
+                     <option value="069">BANCO CREFISA S.A.</option>
+                     <option value="368">BANCO CSF S.A.</option>
+                     <option value="003">BANCO DA AMAZONIA S.A.</option>
+                     <option value="083">BANCO DA CHINA BRASIL S.A.</option>
+                     <option value="707">BANCO DAYCOVAL S.A.</option>
+                     <option value="654">BANCO DIGIMAIS S.A.</option>
+                     <option value="335">BANCO DIGIO S.A.</option>
+                     <option value="001">BANCO DO BRASIL</option>
+                     <option value="047">BANCO DO ESTADO DE SERGIPE S.A.</option>
+                     <option value="037">BANCO DO ESTADO DO PARÁ S.A.</option>
+                     <option value="041">BANCO DO ESTADO DO RIO GRANDE DO SUL S.A.</option>
+                     <option value="004">BANCO DO NORDESTE DO BRASIL S.A.</option>
+                     <option value="265">BANCO FATOR S.A.</option>
+                     <option value="224">BANCO FIBRA S.A.</option>
+                     <option value="094">BANCO FINAXIS S.A.</option>
+                     <option value="125">BANCO GENIAL S.A.</option>
+                     <option value="390">BANCO GM S.A.</option>
+                     <option value="612">BANCO GUANABARA S.A.</option>
+                     <option value="269">BANCO HSBC S.A.</option>
+                     <option value="012">BANCO INBURSA S.A.</option>
+                     <option value="604">BANCO INDUSTRIAL DO BRASIL S.A.</option>
+                     <option value="077">BANCO INTER S.A.</option>
+                     <option value="249">BANCO INVESTCRED UNIBANCO S.A.</option>
+                     <option value="029">BANCO ITAÚ CONSIGNADO S.A.</option>
+                     <option value="479">BANCO ITAUBANK S.A.</option>
+                     <option value="074">BANCO J. SAFRA S.A.</option>
+                     <option value="376">BANCO J.P. MORGAN S.A.</option>
+                     <option value="217">BANCO JOHN DEERE S.A.</option>
+                     <option value="076">BANCO KDB DO BRASIL S.A.</option>
+                     <option value="757">BANCO KEB HANA DO BRASIL S.A.</option>
+                     <option value="630">BANCO LETSBANK S.A.</option>
+                     <option value="600">BANCO LUSO BRASILEIRO S.A.</option>
+                     <option value="719">BANCO MASTER MÚLTIPLO</option>
+                     <option value="243">BANCO MASTER S/A</option>
+                     <option value="389">BANCO MERCANTIL DO BRASIL S.A.</option>
+                     <option value="381">BANCO MERCEDES-BENZ DO BRASIL S.A.</option>
+                     <option value="370">BANCO MIZUHO DO BRASIL S.A.</option>
+                     <option value="746">BANCO MODAL S.A.</option>
+                     <option value="066">BANCO MORGAN STANLEY S.A.</option>
+                     <option value="456">BANCO MUFG BRASIL S.A.</option>
+                     <option value="712">BANCO OURINVEST S.A.</option>
+                     <option value="623">BANCO PAN S.A.</option>
+                     <option value="611">BANCO PAULISTA S.A.</option>
+                     <option value="643">BANCO PINE S.A.</option>
+                     <option value="747">BANCO RABOBANK INTERNATIONAL BRASIL S.A.</option>
+                     <option value="088">BANCO RANDON S.A.</option>
+                     <option value="633">BANCO RENDIMENTO S.A.</option>
+                     <option value="741">BANCO RIBEIRAO PRETO S.A.</option>
+                     <option value="720">BANCO RNX S.A.</option>
+                     <option value="120">BANCO RODOBENS S.A.</option>
+                     <option value="422">BANCO SAFRA S.A.</option>
+                     <option value="743">BANCO SEMEAR S.A.</option>
+                     <option value="276">BANCO SENFF S.A.</option>
+                     <option value="754">BANCO SISTEMA S.A.</option>
+                     <option value="366">BANCO SOCIETE GENERALE BRASIL S.A.</option>
+                     <option value="637">BANCO SOFISA S.A.</option>
+                     <option value="299">BANCO SOROCRED S.A. - BANCO MÚLTIPLO</option>
+                     <option value="464">BANCO SUMITOMO MITSUI BRASILEIRO S.A.</option>
+                     <option value="082">BANCO TOPÁZIO S.A.</option>
+                     <option value="387">BANCO TOYOTA DO BRASIL S.A.</option>
+                     <option value="634">BANCO TRIANGULO S.A.</option>
+                     <option value="018">BANCO TRICURY S.A.</option>
+                     <option value="653">BANCO VOITER S.A.</option>
+                     <option value="393">BANCO VOLKSWAGEN S.A.</option>
+                     <option value="655">BANCO VOTORANTIM S.A.</option>
+                     <option value="610">BANCO VR S.A.</option>
+                     <option value="119">BANCO WESTERN UNION DO BRASIL S.A.</option>
+                     <option value="124">BANCO WOORI BANK DO BRASIL S.A.</option>
+                     <option value="348">BANCO XP S.A.</option>
+                     <option value="475">BANCO YAMAHA MOTOR DO BRASIL S.A.</option>
+                     <option value="081">BANCOSEGURO S.A.</option>
+                     <option value="021">BANESTES S.A. BANCO DO ESTADO DO ESPIRITO SANTO</option>
+                     <option value="755">BANK OF AMERICA MERRILL LYNCH BANCO MÚLTIPLO S.A.</option>
+                     <option value="415">BCO NACIONAL</option>
+                     <option value="250">BCV - BANCO DE CRÉDITO E VAREJO S.A.</option>
+                     <option value="550">BEETELLER</option>
+                     <option value="426">BIORC FINANCEIRA - CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A.</option>
+                     <option value="531">BMP SCD S.A.</option>
+                     <option value="274">BMP SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E A EMPRESA DE PEQUENO PORTE LTDA.</option>
+                     <option value="377">BMS SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="547">BNK DIGITAL SCD S.A.</option>
+                     <option value="017">BNY MELLON BANCO S.A.</option>
+                     <option value="408">BONUSPAGO SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="237">BRADESCO</option>
+                     <option value="070">BRB - BANCO DE BRASILIA S.A.</option>
+                     <option value="568">BRCONDOS SCD S.A.</option>
+                     <option value="104">CAIXA</option>
+                     <option value="465">CAPITAL CONSIG SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="324">CARTOS SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+
+                     <option value="130">CARUANA S.A. - SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="159">CASA DO CRÉDITO S.A. SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR</option>
+                     <option value="584">CCC POUP E INV DOS ESTADOS DO PR, SP E RJ</option>
+                     <option value="582">CCC POUP INV DE MS, GO, DF E TO</option>
+                     <option value="583">CCC POUP INV DO CENTRO NORTE DO BRASIL</option>
+                     <option value="580">CCCPOUPINV SUL E SUDESTE - CENTRAL SUL/SUDESTE</option>
+                     <option value="470">CDC SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESADE PEQUENO PORTE LTDA.</option>
+                     <option value="509">CELCOIN IP S.A.</option>
+                     <option value="581">CENTRAL NORDESTE</option>
+                     <option value="320">CHINA CONSTRUCTION BANK (BRASIL) BANCO MÚLTIPLO S/A</option>
+                     <option value="362">CIELO S.A. - INSTITUIÇÃO DE PAGAMENTO</option>
+                     <option value="542">CLOUDWALK IP LTDA</option>
+                     <option value="402">COBUCCIO S/A - SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTOS</option>
+                     <option value="133">CONFEDERAÇÃO NACIONAL DAS COOPERATIVAS CENTRAIS DE CRÉDITO E ECONOMIA FAMILIAR E</option>
+                     <option value="136">CONFEDERAÇÃO NACIONAL DAS COOPERATIVAS CENTRAIS UNICRED LTDA. - UNICRED DO BRASI</option>
+                     <option value="569">CONTA PRONTA IP</option>
+                     <option value="543">COOPCRECE</option>
+                     <option value="085">COOPERATIVA CENTRAL DE CRÉDITO - AILOS</option>
+                     <option value="427">COOPERATIVA DE CREDITO DOS SERVIDORES DA UNIVERSIDADE FEDERAL DO ESPIRITO SANTO</option>
+                     <option value="016">COOPERATIVA DE CRÉDITO MÚTUO DOS DESPACHANTES DE TRÂNSITO DE SANTA CATARINA E RI</option>
+                     <option value="281">COOPERATIVA DE CRÉDITO RURAL COOPAVEL</option>
+                     <option value="322">COOPERATIVA DE CRÉDITO RURAL DE ABELARDO LUZ - SULCREDI/CREDILUZ</option>
+                     <option value="391">COOPERATIVA DE CREDITO RURAL DE IBIAM - SULCREDI/IBIAM</option>
+                     <option value="350">COOPERATIVA DE CRÉDITO RURAL DE PEQUENOS AGRICULTORES E DA REFORMA AGRÁRIA DO CE</option>
+                     <option value="273">COOPERATIVA DE CRÉDITO RURAL DE SÃO MIGUEL DO OESTE - SULCREDI/SÃO MIGUEL</option>
+                     <option value="430">COOPERATIVA DE CREDITO RURAL SEARA - CREDISEARA</option>
+                     <option value="400">COOPERATIVA DE CRÉDITO, POUPANÇA E SERVIÇOS FINANCEIROS DO CENTRO OESTE - CREDIT</option>
+                     <option value="328">COOPERATIVA DE ECONOMIA E CRÉDITO MÚTUO DOS FABRICANTES DE CALÇADOS DE SAPIRANGA</option>
+                     <option value="471">COOPERATIVA DE ECONOMIA E CREDITO MUTUO DOS SERVIDORES PUBLICOS DE PINHÃO - CRES</option>
+                     <option value="385">COOPERATIVA DE ECONOMIA E CREDITO MUTUO DOS TRABALHADORES PORTUARIOS DA GRANDE V</option>
+                     <option value="379">COOPERFORTE - COOPERATIVA DE ECONOMIA E CRÉDITO MÚTUO DE FUNCIONÁRIOS DE INSTITU</option>
+                     <option value="403">CORA SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="098">CREDIALIANÇA COOPERATIVA DE CRÉDITO RURAL</option>
+                     <option value="429">CREDIARE S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="440">CREDIBRF - COOPERATIVA DE CRÉDITO</option>
+                     <option value="010">CREDICOAMO CREDITO RURAL COOPERATIVA</option>
+                     <option value="443">CREDIHOME SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="089">CREDISAN COOPERATIVA DE CRÉDITO</option>
+                     <option value="097">CREDISIS - CENTRAL DE COOPERATIVAS DE CRÉDITO LTDA.</option>
+                     <option value="342">CREDITAS SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="428">CREDSYSTEM SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="321">CREFAZ SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E A EMPRESA DE PEQUENO PORTE LT</option>
+                     <option value="435">DELCRED SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="487">DEUTSCHE BANK S.A. - BANCO ALEMAO</option>
+                     <option value="575">DGBK CREDIT S.A. - SOCIEDADE DE CRÉDITO DIRETO.</option>
+                     <option value="646">DM SA CFI</option>
+                     <option value="301">DOCK INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="676">DUFRIO CFI S.A.</option>
+                     <option value="664">EAGLE IP LTDA.</option>
+                     <option value="532">EAGLE SCD S.A.</option>
+                     <option value="383">EBANX INSTITUICAO DE PAGAMENTOS LTDA.</option>
+                     <option value="534">EWALLY IP S.A.</option>
+                     <option value="149">FACTA FINANCEIRA S.A. - CRÉDITO FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="516">FC FINANCEIRA S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="343">FFA SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE LTDA.</option>
+                     <option value="510">FFCRED SOCIEDADE DE CRÉDITO DIRETO S.A..</option>
+                     <option value="382">FIDÚCIA SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE L</option>
+                     <option value="450">FITBANK INSTITUIÇÃO DE PAGAMENTOS ELETRÔNICOS S.A.</option>
+                     <option value="566">FLAGSHIP IP LTDA</option>
+                     <option value="589">G5 SCD SA</option>
+                     <option value="478">GAZINCRED S.A. SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="364">GERENCIANET S.A.</option>
+                     <option value="636">GIRO - SCD S/A</option>
+                     <option value="384">GLOBAL FINANÇAS SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO</option>
+                     <option value="064">GOLDMAN SACHS DO BRASIL BANCO MULTIPLO S.A.</option>
+                     <option value="540">HBI SCD</option>
+                     <option value="674">HINOVA PAY IP S.A.</option>
+                     <option value="062">HIPERCARD BANCO MÚLTIPLO S.A.</option>
+                     <option value="523">HR DIGITAL SCD</option>
+                     <option value="189">HS FINANCEIRA S/A CREDITO, FINANCIAMENTO E INVESTIMENTOS</option>
+                     <option value="312">HSCM - SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE LT</option>
+                     <option value="396">HUB INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="132">ICBC DO BRASIL BANCO MÚLTIPLO S.A.</option>
+                     <option value="139">INTESA SANPAOLO BRASIL S.A. - BANCO MÚLTIPLO</option>
+                     <option value="597">ISSUER IP LTDA.</option>
+                     <option value="341">ITAU</option>
+                     <option value="401">IUGU INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="451">J17 - SOCIEDADE DE CRÉDITO DIRETO S/A</option>
+                     <option value="559">KANASTRA CFI</option>
+                     <option value="399">KIRTON BANK S.A. - BANCO MÚLTIPLO</option>
+                     <option value="416">LAMARA SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="421">LAR COOPERATIVA DE CRÉDITO - LAR CREDI</option>
+                     <option value="105">LECCA CRÉDITO, FINANCIAMENTO E INVESTIMENTO S/A</option>
+                     <option value="414">LEND SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="397">LISTO SOCIEDADE DE CREDITO DIRETO S.A.</option>
+                     <option value="560">MAG IP LTDA.</option>
+                     <option value="592">MAPS IP LTDA.</option>
+                     <option value="576">MERCADO BITCOIN IP LTDA</option>
+                     <option value="518">MERCADO CRÉDITO SCFI S.A.</option>
+                     <option value="567">MERCANTIL FINANCEIRA</option>
+                     <option value="537">MICROCASH SCMEPP LTDA.</option>
+                     <option value="358">MIDWAY S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="526">MONETARIE SCD</option>
+                     <option value="544">MULTICRED SCD S.A.</option>
+                     <option value="536">NEON PAGAMENTOS S.A. IP</option>
+                     <option value="614">NITRO SCD S.A.</option>
+                     <option value="753">NOVO BANCO CONTINENTAL S.A. - BANCO MÚLTIPLO</option>
+                     <option value="260">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</option>
+                     <option value="419">NUMBRS SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="613">OMNI BANCO S.A.</option>
+                     <option value="659">ONEKEY PAYMENTS IP S.A.</option>
+                     <option value="535">OPEA SCD</option>
+                     <option value="355">ÓTIMO SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="651">PAGARE IP S.A.</option>
+                     <option value="660">PAGME IP LTDA</option>
+                     <option value="557">PAGPRIME IP</option>
+                     <option value="555">PAN CFI</option>
+                     <option value="254">PARANÁ BANCO S.A.</option>
+                     <option value="326">PARATI - CREDITO, FINANCIAMENTO E INVESTIMENTO S.A.</option>
+                     <option value="561">PAY4FUN IP S.A.</option>
+                     <option value="174">PEFISA S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="553">PERCAPITAL SCD S.A.</option>
+                     <option value="079">PICPAY BANK - BANCO MÚLTIPLO S.A</option>
+                     <option value="380">PICPAY INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="529">PINBANK BRASIL INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="410">PLANNER SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="445">PLANTAE S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="093">PÓLOCRED   SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORT</option>
+                     <option value="563">PROTEGE PAY CASH IP S.A.</option>
+                     <option value="588">PROVER PROMOCAO DE VENDAS IP LTDA.</option>
+                     <option value="329">QI SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="579">QUADRA SCD</option>
+                     <option value="374">REALIZE CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A.</option>
+                     <option value="522">RED SCD S.A.</option>
+                     <option value="590">REPASSES FINANCEIROS E SOLUCOES TECNOLOGICAS IP S.A.</option>
+                     <option value="620">REVOLUT SCD S.A.</option>
+                     <option value="548">RPW S.A. SCFI</option>
+                     <option value="033">SANTANDER</option>
+                     <option value="539">SANTINVEST S.A. - CFI</option>
+                     <option value="482">SBCASH SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="507">SCFI EFÍ S.A.</option>
+                     <option value="751">SCOTIABANK BRASIL S.A. BANCO MÚLTIPLO</option>
+                     <option value="530">SER FINANCE SCD S.A.</option>
+                     <option value="190">SERVICOOP - COOPERATIVA DE CRÉDITO DOS SERVIDORES PÚBLICOS ESTADUAIS E MUNICIPAI</option>
+                     <option value="585">SETHI SCD SA</option>
+                     <option value="578">SICRES</option>
+                     <option value="615">SMART SOLUTIONS GROUP IP LTDA</option>
+                     <option value="412">SOCIAL BANK BANCO MÚLTIPLO S/A</option>
+                     <option value="425">SOCINAL S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="183">SOCRED S.A. - SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO P</option>
+                     <option value="520">SOMAPAY SCD S.A.</option>
+                     <option value="533">SRM BANK</option>
+                     <option value="665">STARK BANK S.A. - IP</option>
+                     <option value="462">STARK SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="014">STATE STREET BRASIL S.A. - BANCO COMERCIAL</option>
+                     <option value="197">STONE INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="538">SUDACRED SCD S.A.</option>
+                     <option value="404">SUMUP SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="340">SUPERDIGITAL INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="481">SUPERLÓGICA SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="593">TRANSFEERA IP S.A.</option>
+                     <option value="095">TRAVELEX BANCO DE CÂMBIO S.A.</option>
+                     <option value="619">TRIO IP LTDA.</option>
+                     <option value="546">U4C INSTITUIÇÃO DE PAGAMENTO S.A.</option>
+                     <option value="460">UNAVANTI SOCIEDADE DE CRÉDITO DIRETO S/A</option>
+                     <option value="099">UNIPRIME CENTRAL NACIONAL - CENTRAL NACIONAL DE COOPERATIVA DE CREDITO</option>
+                     <option value="084">UNIPRIME DO BRASIL - COOPERATIVA DE CRÉDITO</option>
+                     <option value="457">UY3 SOCIEDADE DE CRÉDITO DIRETO S/A</option>
+                     <option value="552">UZZIPAY IP S.A.</option>
+                     <option value="195">VALOR SOCIEDADE DE CRÉDITO DIRETO S.A.</option>
+                     <option value="662">WE PAY OUT IP LTDA.</option>
+                     <option value="280">WILL FINANCEIRA S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO</option>
+                     <option value="632">Z-ON SCD S.A.</option>
+                     <option value="586">Z1 IP LTDA.</option>
+                     <option value="359">ZEMA CRÉDITO, FINANCIAMENTO E INVESTIMENTO S/A</option>
+                     <option value="671">ZERO</option>
+                     <option value="418">ZIPDIN SOLUÇÕES DIGITAIS SOCIEDADE DE CRÉDITO DIRETO S/A</option>
+                     <option value="595">ZOOP MEIOS DE PAGAMENTO</option>
+                  </select>
+                </div>
+                <div class="form-group" style="flex-direction: row; flex: 1.5; gap: 8px;">
+                  <div class="form-group" style="flex: 1;">
+                    <label for="agencia-bancario">Agência</label>
+                    <input type="text" id="agencia-bancario" name="agencia" minlength="4" maxlength="4" required inputmode="numeric">
+                  </div>                  
+                  <div class="form-group" style="flex: 0.5;">
+                    <label for="digito-bancario">Dígito</label>
+                    <input type="text" id="digito-bancario" name="digito" maxlength="2" required style="text-align: center;" inputmode="numeric">
+                  </div>
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="numero-bancario">Número da Conta</label>
+                  <input type="text" id="numero-bancario" name="numero" maxlength="12" required inputmode="numeric">
+                </div>
+                <div class="form-group">
+                  <label for="conta-bancario">Conta</label>
+                  <select id="conta-bancario" name="conta" required>
+                    <option value="">Selecione</option>
+                    <option value="0">Conjunta</option>
+                    <option value="1">Individual</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-groups-row">
+                <div class="form-group">
+                  <label for="tipo-conta-bancario">Tipo de Conta</label>
+                  <select id="tipo-conta-bancario" name="tipo-conta" required>
+                    <option value="">Selecione</option>
+                    <option value="0">Conta Corrente</option>
+                    <option value="1">Conta Poupança</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="tempo-conta-bancario">Tempo de Conta</label>
+                  <select id="tempo-conta-bancario" name="tempo-conta" required>
+                    <option value="">Selecione</option>
+                    <option value="0">Menos que 1 ano</option>
+                    <option value="1">De 1 a 3 anos</option>
+                    <option value="2">De 3 a 5 anos</option>
+                    <option value="3">Mais que 5 anos</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="back-btn">Voltar</button>
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card card-behind" data-card-id="upload-imagens" data-progress="100">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">DOCUMENTOS</span>
+            <h2>
+              Envie as imagens dos <span class="destaque">documentos</span> necessários
+            </h2>
+            <div class="upload-grid" style="flex-direction: column; gap: 18px;">
+              <div class="upload-upload-group" id="group-conta-luz">
+                <div class="upload-box" id="box-conta-luz">
+                  <input type="file" id="upload-conta-luz" accept="image/*" />
+                  <div class="upload-placeholder" id="placeholder-conta-luz">
+                    <span class="upload-plus-icon">+</span>
+                  </div>
+                  <img class="upload-preview-img" id="img-conta-luz" style="display:none;" />
+                </div>
+                <div class="upload-info-area">
+                  <div class="upload-file-name" id="name-conta-luz">Conta de Luz</div>
+                  <div class="upload-file-size" id="size-conta-luz" style="display:none;"></div>
+                </div>
+                <button class="upload-remove-btn" id="remove-conta-luz" style="display:none; margin-left:auto;">&times;</button>
+              </div>
+              <div class="upload-upload-group" id="group-id-frente">
+                <div class="upload-box" id="box-id-frente">
+                  <input type="file" id="upload-id-frente" accept="image/*" />
+                  <div class="upload-placeholder" id="placeholder-id-frente">
+                    <span class="upload-plus-icon">+</span>
+                  </div>
+                  <img class="upload-preview-img" id="img-id-frente" style="display:none;" />
+                </div>
+                <div class="upload-info-area">
+                  <div class="upload-file-name" id="name-id-frente">RG - Frente</div>
+                  <div class="upload-file-size" id="size-id-frente" style="display:none;"></div>
+                </div>
+                <button class="upload-remove-btn" id="remove-id-frente" style="display:none; margin-left:auto;">&times;</button>
+              </div>
+              <div class="upload-upload-group" id="group-id-verso">
+                <div class="upload-box" id="box-id-verso">
+                  <input type="file" id="upload-id-verso" accept="image/*" />
+                  <div class="upload-placeholder" id="placeholder-id-verso">
+                    <span class="upload-plus-icon">+</span>
+                  </div>
+                  <img class="upload-preview-img" id="img-id-verso" style="display:none;" />
+                </div>
+                <div class="upload-info-area">
+                  <div class="upload-file-name" id="name-id-verso">RG - Verso</div>
+                  <div class="upload-file-size" id="size-id-verso" style="display:none;"></div>
+                </div>
+                <button class="upload-remove-btn" id="remove-id-verso" style="display:none; margin-left:auto;">&times;</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button class="back-btn">Voltar</button>
+              <button class="next-btn">Avançar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-behind" data-card-id="loading-final" data-progress="100">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">FINALIZANDO</span>
+            <h2>
+              <span class="destaque">Enviando</span> sua proposta para análise...
+            </h2>
+            <div class="loading-container">
+              <div class="loading-spinner"></div>
+              <div class="loading-steps">
+                <div class="loading-step active">
+                  <span class="step-icon">✓</span>
+                  <span class="step-text">Validando documentos</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Fazendo upload dos arquivos</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Enviando proposta para análise</span>
+                </div>
+                <div class="loading-step">
+                  <span class="step-icon">⏳</span>
+                  <span class="step-text">Finalizando processo</span>
+                </div>
+              </div>
+              <p class="loading-text">
+                Estamos enviando sua proposta completa para análise!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-------------------------------- formulario final -------------------------------->
+        <div class="card card-behind" data-card-id="obrigado" data-progress="100">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">FINALIZADO</span>
+            <h2>
+              Obrigado por escolher a <span class="destaque">Crediconfiance</span>!
+            </h2>
+            <div class="result-container">
+              <div class="result-card approved">
+                <div class="result-icon">🎉</div>
+                <div class="result-info">
+                  <h3>Proposta enviada com sucesso</h3>
+                  <p class="result-message">
+                    Sua proposta foi recebida e está em análise.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <ul style="padding: 0 0 0 18px; color: #6b7280; font-size: 0.9rem; line-height: 1.7;">
+              <li>Conferência dos documentos enviados</li>
+              <li>Pagamento em até 24 horas após aprovação</li>
+              <li>Você será avisado assim que a análise terminar.</li>
+            </ul>
+            <p style="margin-top: 18px; font-weight: 600; color: #222; text-align: center; font-size: 1rem; line-height: 1.4;">
+              Fique tranquilo! A equipe Crediconfiance está cuidando de tudo para você.
+            </p>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <button id="btn-obrigado-entendi" class="next-btn">Entendi</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card card-behind" data-card-id="erro-final" data-progress="100">
+          <div class="card-header">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="question-label">ERRO</span>
+            <h2>
+              Ocorreu um <span class="destaque">erro inesperado</span>
+            </h2>
+            <div class="result-container">
+              <div class="result-card rejected">
+                <div class="result-icon">!</div>
+                <div class="result-info">
+                  <h3>Não foi possível concluir sua solicitação</h3>
+                </div>
+              </div>
+            </div>
+            <p class="result-message" style="color: #6b7280; margin-top: 12px;">
+              Tivemos um problema ao processar sua solicitação. Isso pode ter ocorrido por instabilidade na conexão ou na comunicação com o servidor.             
+            </p>
+            <p class="result-message" style="margin-top: 18px; color: #6b7280;">
+              Você pode tentar novamente agora ou, se preferir, finalizar e tentar mais tarde.
+            </p>
+            <div class="result-actions" style="margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+              <button class="primary-btn" id="btn-retry-final">Tentar novamente</button>
+              <button class="secondary-btn" id="btn-finalizar-erro">Finalizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-------------------------------- bottom sheet -------------------------------->
+    <dialog id="bottom-sheet-dialog" class="bottom-sheet-dialog">
+      <div  class="bottom-sheet-container">
+        <div class="bottom-sheet-close-row">
+          <button onclick="this.closest('dialog').close()" type="button" class="bottom-sheet-close-btn" aria-label="Fechar">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+        <ul class="bottom-sheet-list">
+          
+        </ul>
+        <div class="bottom-sheet-header">
+          <label class="bottom-sheet-label">Selecione o estado</label>
+          <input 
+            type="text" 
+            class="bottom-sheet-input" 
+            placeholder="Buscar..."
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    </dialog>
+
+    <!-------------------------------- img cia -------------------------------->
+    <dialog id="img-cia-dialog" class="img-cia-dialog">
+      <div class="img-cia-dialog-content">
+        <div class="img-cia-toolbar">
+          <button id="btn-zoom" title="Zoom">
+            <svg class="img-cia-zoom-in-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" x2="16.65" y1="21" y2="16.65"/>
+              <line x1="11" x2="11" y1="8" y2="14"/>
+              <line x1="8" x2="14" y1="11" y2="11"/>
+            </svg>
+            <svg class="img-cia-zoom-out-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" x2="16.65" y1="21" y2="16.65"/>
+              <line x1="8" x2="14" y1="11" y2="11"/>
+            </svg>
+          </button>
+          <button id="btn-close" title="Fechar">
+            <svg width="24" height="24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="img-cia-img-wrapper">
+          <img id="img-cia-main" src="img/cpfl.png" alt="Imagem" draggable="false" />
+        </div>
+      </div>
+    </dialog>
+    
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script type="module" src="index-v2.js"></script>    
+  </body>
+</html>
+

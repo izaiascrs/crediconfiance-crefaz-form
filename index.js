@@ -13,6 +13,8 @@ import {
   mockValidateEneryDataResponse
 } from "./mock.js";
 
+// import gsap from cdn
+import gsap from 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/+esm';
 
 const SimulationStep = {
   OFFER: "Seleção Oferta",

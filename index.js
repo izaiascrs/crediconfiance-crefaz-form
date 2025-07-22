@@ -6088,7 +6088,7 @@ class ImgCiaViewer {
 
 function setupFlow() {
   // http://localhost:3000, https://api.crediconfiance.com.br
-  const apiManager = new ApiManager("https://api.crediconfiance.com.br", false); 
+  const apiManager = new ApiManager("https://api.crediconfiance.com.br", true); 
   const dataManager = new DataManager();
   const validator = new FlowValidator();
   const navigator = new FlowNavigator();

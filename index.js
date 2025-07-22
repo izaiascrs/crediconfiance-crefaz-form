@@ -905,12 +905,12 @@ const CiaTips = {
   },
 
   ciaImgUrl: {
-    "CPFL": "/img/cpfl.png",
-    "ENEL GO": "/img/enel-go.png",
-    "ENEL CE": "/img/enel-ce.png",
-    "ENEL SP": "/img/enel-sp.png",
-    "ENEL RJ": "/img/enel-rj.png",
-    "RGE": "/img/rge.png",
+    "CPFL": "https://crediconfiance.com.br/wp-content/uploads/2025/07/cpfl.png",
+    "ENEL GO": "https://crediconfiance.com.br/wp-content/uploads/2025/07/enel-sp.png",
+    "ENEL CE": "https://crediconfiance.com.br/wp-content/uploads/2025/07/enel-ce.png",
+    "ENEL SP": "https://crediconfiance.com.br/wp-content/uploads/2025/07/enel-sp.png",
+    "ENEL RJ": "https://crediconfiance.com.br/wp-content/uploads/2025/07/enel-rj.png",
+    "RGE": "https://crediconfiance.com.br/wp-content/uploads/2025/07/rge.png",
   },
 
   getTips: function(cia, nomeCampo) {
@@ -6088,7 +6088,7 @@ class ImgCiaViewer {
 
 function setupFlow() {
   // http://localhost:3000, https://api.crediconfiance.com.br
-  const apiManager = new ApiManager("https://api.crediconfiance.com.br", false); 
+  const apiManager = new ApiManager("https://api.crediconfiance.com.br", true); 
   const dataManager = new DataManager();
   const validator = new FlowValidator();
   const navigator = new FlowNavigator();

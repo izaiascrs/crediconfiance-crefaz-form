@@ -10,7 +10,7 @@ import {
   mockSubmitProposalResponse,
   mockSearchByCpfResponse,
   mockMaxAvailableOfferResponse,
-  mockValidateEneryDataResponse
+  mockValidateEneryDataResponse,
 } from "./mock.js";
 
 // import gsap from cdn
@@ -44,7 +44,8 @@ class ApiManager {
     listCities: "/api/conta-luz/v2/state/cities",
     submitProposal: "/api/conta-luz/v2/proposal/analyze",
     searchByCpf: "/api/conta-luz/v2/proposal/search-by-cpf",
-    validateEnergyData: "/api/conta-luz/v2/proposal/energy/validate"
+    validateEnergyData: "/api/conta-luz/v2/proposal/energy/validate",
+    saveDataToSheet: "/api/conta-luz/v2/image/upload"
   }
 
   fetchOptions = {
@@ -66,6 +67,12 @@ class ApiManager {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
+      }
+    },
+    formData: function(body) {
+      return {
+        method: "POST",
+        body: body
       }
     }
   }
@@ -151,6 +158,12 @@ class ApiManager {
     if (this.useMock) return { success: true, data: mockSearchByCpfResponse ?? {} };
     const url = this.apiUrl + this.endpoint.searchByCpf;
     return this.fetchData(url, this.fetchOptions.post(data));
+  }
+
+  saveDataToSheet(form) {
+    if (this.useMock) return { ok: true };
+    const url = this.apiUrl + this.endpoint.saveDataToSheet;
+    return this.fetchData(url, this.fetchOptions.formData(form));
   }
 
   fetchData = async (url, options = {}) => {
@@ -548,6 +561,20 @@ class DataManager {
             tipoCalculo: this.#userSelections.tipoCalculo
           }
         }
+
+      case 'saveDataToSheet':
+        return {
+            nome: this.#userData.nome,
+            cpf: DataNormalizer.formatCPFToBrazilian(this.#userData.cpf),
+            "nascimento": DataNormalizer.normalizeDateToBrazilian(this.#userData.nascimento),
+            "data-de-nascimento": DataNormalizer.normalizeDateToBrazilian(this.#userData.nascimento),
+            whatsApp: DataNormalizer.formatPhoneToBrazilian(this.#userData.telefone), // (xx) xxxxx-xxxx
+            cep: this.#userData.cep,
+            cidade: this.#userData.cidade,
+            estado: this.#userData.estado,
+            companhia: this.#cia.nome || "N/A",
+            valor: this.#userSelections.valor,            
+        }
     }
   }
 
@@ -663,6 +690,22 @@ class DataNormalizer {
       return `${parts[2]}-${parts[1]}-${parts[0]}`
     }
     return date
+  }
+
+  static normalizeDateToBrazilian(date) {
+    if (!date) return ""
+    const parts = date.split("-")
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`
+    }
+  }
+
+  static formatPhoneToBrazilian(phone) {
+    return phone.replace(/(\d{2})(\d{5})(\d)/, "($1) $2-$3") || ""
+  }
+
+  static formatCPFToBrazilian(cpf) {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") || ""
   }
 
   static normalizePhone(phone) {
@@ -4544,7 +4587,11 @@ class FlowManager {
     try {
       // 1. Criar simulação
       this.ui.transitionBetweenCards("loading", 1);
-      const simulationResult = await this.createSimulation();     
+      const simulationResult = await this.createSimulation();
+
+      // Salva dados da simulação no Google Sheets
+      await this.saveDataToSheet(simulationResult?.data?.aprovado);
+
       this.ui.animateCardLoading(1, 'normal');
       const simulationValidation = this.validator.validateSimulation(simulationResult);
       
@@ -4691,6 +4738,26 @@ class FlowManager {
     });
 
     this.ui.setupDynamicSliders(parcelasCalculadas);
+
+    return { success: true };
+  }
+
+  async saveDataToSheet(isApproved = false) {
+    const jsonData = this.data.getDataForRequest('saveDataToSheet');
+    const formData = new FormData();
+    Object.entries(jsonData).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    formData.append('aprovado', isApproved ? 'SIM' : 'NÃO');
+
+    console.log('🔍 FormData:', formData);
+    
+    await this.api.retry(
+      () => this.api.saveDataToSheet(formData),
+      1, // maxRetries
+      1000, // delay inicial
+      2 // backoff
+    );
 
     return { success: true };
   }
@@ -6087,6 +6154,7 @@ class ImgCiaViewer {
     this.dialog.showModal();
   }
 }
+
 
 function setupFlow() {
   // http://localhost:3000, https://api.crediconfiance.com.br

@@ -779,5 +779,5 @@ export {
   mockSubmitProposalResponse,
   mockSearchByCpfResponse,
   mockMaxAvailableOfferResponse,
-  mockValidateEneryDataResponse
+  mockValidateEneryDataResponse,
 };

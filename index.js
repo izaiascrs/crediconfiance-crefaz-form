@@ -188,14 +188,12 @@ class ApiManager {
     
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
-        console.log(`🔄 Tentativa ${attempt + 1}/${maxRetries + 1}`);
         
         const result = await fn();
         
         // Se a função retornou um resultado com success: true, retorna imediatamente
         if (result && result.success) {
           if (attempt > 0) {
-            console.log(`✅ Sucesso na tentativa ${attempt + 1}`);
           }
           return result;
         }
@@ -211,7 +209,6 @@ class ApiManager {
       // Se não é a última tentativa, aguarda antes de tentar novamente
       if (attempt < maxRetries) {
         const waitTime = delay * Math.pow(backoff, attempt);
-        console.log(`⏳ Aguardando ${waitTime}ms antes da próxima tentativa...`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
       }
     }
@@ -317,21 +314,18 @@ class DataManager {
   updateDadosPessoais(data) {
     const normalizedData = DataNormalizer.normalizeDadosPessoais(data)
     this.#userData = { ...this.#userData, ...normalizedData }
-    console.log('👤 Dados pessoais atualizados:', normalizedData)
   }
 
   // Atualiza dados de RG e naturalidade
   updateRGData(data) {
     const normalizedData = DataNormalizer.normalizeRGData(data)
     this.#userData = { ...this.#userData, ...normalizedData }
-    console.log('🆔 Dados de RG atualizados:', normalizedData)
   }
 
   // Atualiza dados de endereço
   updateAddressData(data) {
     const normalizedData = DataNormalizer.normalizeAddressData(data)
     this.#userData = { ...this.#userData, ...normalizedData }
-    console.log('🏠 Dados de endereço atualizados:', normalizedData)
   }
 
   updateAddressFromForm(data) {
@@ -339,14 +333,12 @@ class DataManager {
       Object.entries(data).filter(([_, value]) => value != null && value != undefined)
     );
     this.#userData = { ...this.#userData, ...filteredData }
-    console.log('🏠 Dados de endereço atualizados:', filteredData)
   }
 
   // Atualiza dados bancários
   updateBankData(data) {
     const normalizedData = DataNormalizer.normalizeBankData(data)
     this.#userData = { ...this.#userData, ...normalizedData }
-    console.log('🏦 Dados bancários atualizados:', normalizedData)
   }
 
   updateApiData(data) {
@@ -376,7 +368,6 @@ class DataManager {
       prestacao: loanData.parcela.valor,
       plano: loanData.parcela.prazo
     }
-    console.log('💰 Seleção de empréstimo atualizada:', this.#userSelections);
   }
 
   // Obtém as seleções atuais do usuário
@@ -611,7 +602,6 @@ class DataManager {
         });
       }
 
-      console.log(`📤 ${documents.length} documentos preparados para upload`);
       return documents;
       
     } catch (error) {
@@ -855,7 +845,7 @@ const CiaTips = {
     "CPFL": [
       {
         nomes: ["Seu Código", "Código", "Instalação"],
-        dica: "Número da instalação/Código encontra-se na parte superior no quadrado Dados da Unidade Consumidora."
+        dica: "Número da instalação/código encontra-se na parte superior no quadrado Dados da Unidade Consumidora."
       },
       {
         nomes: ["Lote"],
@@ -1575,7 +1565,6 @@ const FormManager = {
 
   // Inicializa o formulário
   init: function () {
-    console.log('🚀 FormManager inicializado');
     
     // Restaura o estado salvo primeiro
     this.restoreFormState();
@@ -1828,7 +1817,6 @@ const FormManager = {
     // Valida formulário
     const validation = FormValidator.validateForm(formData);
     const checkbox = document.getElementById("checkbox-titular");
-    console.log(checkbox.checked);
     
     if (!validation.isValid || !checkbox.checked) {
       return false;
@@ -2072,7 +2060,6 @@ const FormManager = {
   clearFormState: function () {
     try {
       localStorage.removeItem('form_state');
-      console.log('🗑️ Estado do formulário limpo');
     } catch (error) {
       console.error('❌ Erro ao limpar estado do formulário:', error);
     }
@@ -2254,7 +2241,6 @@ const FormManager = {
         continuarAgoraBtn.addEventListener("click", (e) => {
           e.preventDefault();
           const userData = flowManager.data.getDataForRequest("simulation");
-          console.log("preenchendo formulario final com estado", userData);
           Utils.preencherFormularioFinalComEstado(userData);
           this.handleContinueFromSucesso();
         });
@@ -2377,28 +2363,24 @@ const FormManager = {
 
   // Handlers para botões de voltar
   handleBackFromOffers: function () {
-    console.log('⬅️ Voltando do card de ofertas...');
     
     // Volta para o formulário
     flowManager.ui.transitionBetweenCards('formulario', -1);
   },
 
   handleBackFromResumo: function () {
-    console.log('⬅️ Voltando do card de resumo...');
     
     // Volta para o card de ofertas
     flowManager.ui.transitionBetweenCards('ofertas', -1);
   },
 
   handleBackFromDadosEnergia: function () {
-    console.log('⬅️ Voltando do card de dados de energia...');
     
     // Volta para o card de resumo
     flowManager.ui.transitionBetweenCards('resumo', -1);
   },
 
   handleBackFromReprovado: function () {
-    console.log('⬅️ Voltando do card de reprovado...');
     
     Utils.limparFormularioPrincipal();
     this.clearFormState();
@@ -2407,7 +2389,6 @@ const FormManager = {
   },
 
   handleBackFromEmAnalise: function () {
-    console.log('⬅️ Voltando do card de em análise...');
     
     // Remove a proposta do localStorage e volta para o formulário
     ProposalStorageManager.clearProposalId();
@@ -2417,35 +2398,30 @@ const FormManager = {
   },
 
   handleFalarComConsultor: function () {
-    console.log('📞 Falando com consultor...');
     
     // Navega para o card finalizar-parcial
     flowManager.ui.transitionBetweenCards('formulario', 1);
   },
 
   handleBackFromSucesso: function () {
-    console.log('⬅️ Voltando do card de sucesso...');
     
     // Navega para o card finalizar-parcial
     flowManager.ui.transitionBetweenCards('finalizar-parcial', 1);
   },
 
   handleBackFromFinalizar: function () {
-    console.log('⬅️ Voltando do card de finalizar-parcial...');
     
     // Volta para o formulário
     flowManager.ui.transitionBetweenCards('formulario', -1);
   },
 
   handleContinueFromSucesso: function () {
-    console.log('✅ Continuando do card de sucesso...');
     
     // Navega para o card de dados de energia
     flowManager.ui.transitionBetweenCards('formulario-dados-pessoais', 1);
   },
 
   handleContinueFromContinuar: function () {
-    console.log('✅ Continuando do card continuar...');
     
     // Executa o fluxo de continuação a partir da proposta salva
     flowManager.continueFromSavedProposal().then(result => {
@@ -2473,14 +2449,12 @@ const FormManager = {
   },
 
   handleBackFromObrigado: function () {
-    console.log('⬅️ Voltando do card de obrigado...');
     
     // Volta para o formulário
     flowManager.ui.transitionBetweenCards('formulario', -1);
   },
 
   handleFinalizarVazio: function () {
-    console.log('🔄 Finalizando simulação vazia...');
     
     // Volta para o formulário
     Utils.limparFormularioPrincipal();
@@ -2489,8 +2463,7 @@ const FormManager = {
     flowManager.ui.transitionBetweenCards('formulario', 1);
   },
 
-  handleEntendiNaoEncontrada: function () {
-    console.log('🔄 Entendendo card não encontrado...');
+  handleEntendiNaoEncontrada: function () { 
     
     // Volta para o formulário
     Utils.limparFormularioPrincipal();
@@ -2500,7 +2473,6 @@ const FormManager = {
   },
 
   handleRefazerSimulacao: function () {
-    console.log('🔄 Refazendo simulação...');
     
     // Volta para o formulário
     Utils.preencherFormularioComDataManager(flowManager.data);
@@ -2508,55 +2480,47 @@ const FormManager = {
   },
 
   handleBackFromUploadImagens: function () {
-    console.log('⬅️ Voltando do card de upload de imagens...');    
     // Volta para o card de dados bancários
     flowManager.ui.transitionBetweenCards('formulario-bancario', -1);
   },
 
   handleBackFromFormularioBancario: function () {
-    console.log('⬅️ Voltando do card de dados bancários...');
     
     // Volta para o card de endereço
     flowManager.ui.transitionBetweenCards('formulario-endereco', -1);
   },
 
   handleBackFromFormularioEndereco: function () {
-    console.log('⬅️ Voltando do card de endereço...');
     
     // Volta para o card de dados bancários
     flowManager.ui.transitionBetweenCards('formulario-rg-naturalidade', -1);
   },
 
   handleBackFromFormularioRgNaturalidade: function () {
-    console.log('⬅️ Voltando do card de rg e naturalidade...');
     
     // Volta para o card de dados bancários
     flowManager.ui.transitionBetweenCards('formulario-dados-pessoais', -1);
   },
 
   handleRetryFinal: function () {
-    console.log('🔄 Tentando novamente...');
     
     // Volta para o formulário
     retryManager.retryLast();
   },
 
   handleFinalizarErro: function () {
-    console.log('🔄 Finalizando erro...');
     
     // Volta para o formulário
     flowManager.ui.transitionBetweenCards('formulario', 1);
   },
 
   handleTentarNovamenteEnergia: function () {
-    console.log('🔄 Tentando novamente dados da energia...');
     
     // Volta para o card de dados da energia
     flowManager.ui.transitionBetweenCards('dados-energia', 1);
   },
 
   handleVoltarFormularioEnergia: function () {
-    console.log('⬅️ Voltando ao formulário...');
     
     // Volta para o formulário principal
     flowManager.ui.transitionBetweenCards('formulario', 1);
@@ -2620,7 +2584,6 @@ const FormManager = {
       // Configura eventos para campos de data (selects)
       dynamicSelects.forEach(select => {
         select.addEventListener("change", () => {
-          console.log('📅 Select alterado:', select.id, 'valor:', select.value);
           this.checkDadosEnergiaCompletion();
         });
       });
@@ -2670,8 +2633,7 @@ const FormManager = {
   },
 
   // Processa submissão do card de dados de energia
-  handleDadosEnergiaSubmission: function () {
-    console.log('⚡ Submetendo dados de energia...');
+  handleDadosEnergiaSubmission: function () { 
     
     // Verifica se há campos dinâmicos
     const cardDadosEnergia = document.querySelector('[data-card-id="dados-energia"]');
@@ -2692,7 +2654,6 @@ const FormManager = {
         adicionais: dynamicData
       });
       
-      console.log('✅ Dados dinâmicos coletados:', dynamicData);
     } else {
       // Usa campos estáticos (fallback)
       const numeroConta = document.getElementById("numero-da-conta")?.value?.trim();
@@ -2710,8 +2671,6 @@ const FormManager = {
           { campo: "codigoSeguranca", valor: codigoSeguranca }
         ]
       });
-      
-      console.log('✅ Dados estáticos coletados');
     }
 
     // Salva a proposta
@@ -2760,7 +2719,6 @@ const FormManager = {
       }
     });
 
-    console.log('📋 Dados coletados dos campos dinâmicos:', dados);
     return dados;
   },
 
@@ -2812,7 +2770,6 @@ const FormManager = {
   // Salva a proposta na API
   async saveProposal() {
     try {
-      console.log('💾 Salvando proposta...');
       flowManager.ui.resetCardLoading('salvar');
       
       // Mostra loading específico para salvar
@@ -2828,7 +2785,6 @@ const FormManager = {
       flowManager.ui.animateCardLoading(1, 'salvar');
       
       if (result.success) {
-        console.log('✅ Proposta salva com sucesso!');
         
         // Remove a proposta do localStorage quando finalizada com sucesso
         // ProposalStorageManager.clearProposalId();
@@ -2854,7 +2810,6 @@ const FormManager = {
   setupUploadImagensSubmission: function () {
     const uploadImagensCard = document.querySelector('[data-card-id="upload-imagens"]');
     if (!uploadImagensCard) {
-      console.log('❌ Card de upload de imagens não encontrado!');
       return;
     }
 
@@ -2865,7 +2820,6 @@ const FormManager = {
         this.handleUploadImagensSubmission();
       });
     } else {
-      console.log('❌ Botão Avançar não encontrado no card de upload!');
     }
 
     // Configura validação em tempo real dos uploads
@@ -2891,7 +2845,6 @@ const FormManager = {
           if (file) {
             // Atualiza o documento no DataManager
             flowManager.data.updateUserDocument(type, file);
-            console.log(`📄 Documento ${type} selecionado:`, file.name);
           } else {
             // Remove o documento se não há arquivo
             flowManager.data.updateUserDocument(type, null);
@@ -2915,14 +2868,10 @@ const FormManager = {
     const areComplete = flowManager.data.areDocumentsComplete();
     this.toggleButton(nextBtn, areComplete);
     
-    if (areComplete) {
-      console.log('✅ Todos os documentos foram selecionados');
-    }
   },
 
   // Processa submissão do card de upload de imagens
   handleUploadImagensSubmission: function () {
-    console.log('📤 Submetendo upload de imagens...');
     
     // Verifica se todos os documentos estão completos
     if (!flowManager.data.areDocumentsComplete()) {
@@ -2937,7 +2886,6 @@ const FormManager = {
   // Executa o processo final de upload e envio da proposta
   async executeFinalSubmission() {
     try {
-      console.log('🚀 Iniciando processo final de submissão...');
       
       // Mostra o card de loading final
       flowManager.ui.transitionBetweenCards('loading-final', 1);
@@ -2947,13 +2895,11 @@ const FormManager = {
       // Passo 1: Validar documentos (simulado)
       await Utils.sleep(1500);
       flowManager.ui.animateCardLoading(1, 'final');
-      console.log('✅ Documentos validados');
 
       // Se não tiver feito o upload de documentos, faz o upload.
       // Caso tenha feito, pula para o próximo passo.
       // Util para caso aconteça um erro após fazer o upload de documentos.
       if(!this.getDocumentUploaded()) {
-        console.log('primeira vez que faz upload de documentos');
         // Passo 2: Fazer upload dos documentos
         const imagesUploaded = await this.uploadDocuments();
         if(!imagesUploaded) {
@@ -2968,7 +2914,6 @@ const FormManager = {
       }
 
       flowManager.ui.animateCardLoading(2, 'final');
-      console.log('✅ Upload dos documentos concluído');
       
       // Passo 3: Enviar proposta para análise
       const result = await this.submitProposalToAnalysis();
@@ -2983,12 +2928,10 @@ const FormManager = {
       }
 
       flowManager.ui.animateCardLoading(3, 'final');
-      console.log('✅ Proposta enviada para análise');
       
       // Passo 4: Finalizar processo
       await Utils.sleep(1000);
       flowManager.ui.animateCardLoading(4, 'final');
-      console.log('✅ Processo finalizado');
 
       // Limpa id da proposta
       // ProposalStorageManager.clearProposalId()
@@ -3011,11 +2954,9 @@ const FormManager = {
   // Faz upload dos documentos
   async uploadDocuments() {
     try {
-      console.log('📤 Fazendo upload dos documentos...');
       const { propostaId, documentos } = flowManager.data.getDataForRequest('uploadDocument');
       // Prepara os documentos para upload
       const documents = await documentos();
-      console.log('📋 Documentos preparados:', documents);
       
       // Faz upload de cada documento
       const uploadPromises = documents.map(doc => {
@@ -3040,7 +2981,6 @@ const FormManager = {
         return false;
       }
       
-      console.log('✅ Todos os documentos foram enviados com sucesso');
       return true;
       
     } catch (error) {
@@ -3052,10 +2992,8 @@ const FormManager = {
   // Envia a proposta para análise
   async submitProposalToAnalysis() {
     try {
-      console.log('📝 Enviando proposta para análise...');
-      
+
       const proposalData = flowManager.data.getDataForRequest('submitProposalToAnalyse');
-      console.log('📋 Dados da proposta para análise:', proposalData);
       
       // Aqui você faria a chamada para a API que envia a proposta para análise
       // Por enquanto, vamos simular o processo
@@ -3066,7 +3004,6 @@ const FormManager = {
         2 // backoff
       );
       if(result.success) {
-        console.log('✅ Proposta enviada para análise com sucesso');
         return true;
       } else {
         console.error('❌ Erro ao enviar proposta para análise:', result.error);
@@ -3084,7 +3021,6 @@ const FormManager = {
   setupDadosPessoaisSubmission: function () {
     const dadosPessoaisCard = document.querySelector('[data-card-id="formulario-dados-pessoais"]');
     if (!dadosPessoaisCard) {
-      console.log('❌ Card de dados pessoais não encontrado!');
       return;
     }
 
@@ -3192,7 +3128,6 @@ const FormManager = {
 
   // Processa submissão do card de dados pessoais
   handleDadosPessoaisSubmission: function () {
-    console.log('👤 Submetendo dados pessoais...');
     
     const formData = this.collectDadosPessoaisData();
     
@@ -3215,11 +3150,8 @@ const FormManager = {
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateDadosPessoais(mappedData);
     
-    console.log('✅ Dados pessoais atualizados:', mappedData);
-    
     // Log dos dados completos do usuário
     const userData = flowManager.data.getStateForDebug().userData;
-    console.log('👤 Estado completo dos dados do usuário:', userData);
     
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-rg-naturalidade', 1);
@@ -3295,7 +3227,6 @@ const FormManager = {
           return;
         }
 
-        console.log('🌍 Buscando cidades para UF:', uf);
         
         // Faz a requisição para listar cidades
         const { data: result} = await flowManager.api.retry(
@@ -3307,7 +3238,6 @@ const FormManager = {
         
         if (result.success && result.data) {
           this.populateNaturalidadeCidadeSelect(result.data);
-          console.log('✅ Cidades carregadas:', result.data.length, 'cidades');
         } else {
           console.error('❌ Erro ao buscar cidades:', result.error);
           this.clearNaturalidadeCidadeSelect();
@@ -3506,7 +3436,6 @@ const FormManager = {
 
   // Processa submissão do card de RG e naturalidade
   handleRgNaturalidadeSubmission: function () {
-    console.log('🆔 Submetendo dados de RG e naturalidade...');
     
     const formData = this.collectRgNaturalidadeData();
     
@@ -3517,7 +3446,6 @@ const FormManager = {
       keys.forEach(key => {
         this.showFieldError(key, validation.errors[key]);
       });
-      console.log('❌ Dados de RG e naturalidade inválidos:', validation.errors);
       return;
     }
 
@@ -3532,13 +3460,7 @@ const FormManager = {
     
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateRGData(mappedData);
-    
-    console.log('✅ Dados de RG e naturalidade atualizados:', mappedData);
-    
-    // Log dos dados completos do usuário
-    const userData = flowManager.data.getStateForDebug().userData;
-    console.log('🆔 Estado completo dos dados do usuário:', userData);
-    
+        
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-endereco', 1);
   },
@@ -3756,14 +3678,12 @@ const FormManager = {
 
   // Processa submissão do card de endereço
   handleEnderecoSubmission: function () {
-    console.log('🏠 Submetendo dados de endereço...');
     
     const formData = this.collectEnderecoData();
     
     // Valida os dados antes de prosseguir
     const validation = FormValidator.validateForm(formData);
     if (!validation.isValid) {
-      console.log('❌ Dados de endereço inválidos:', validation.errors);
       return;
     }
 
@@ -3777,17 +3697,8 @@ const FormManager = {
     
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateAddressFromForm(mappedData);
-    
-    console.log('✅ Dados de endereço atualizados:', mappedData);
-    
-    // Log dos dados completos do usuário
-    const userData = flowManager.data.getStateForDebug().userData;
-    console.log('🏠 Estado completo dos dados do usuário:', userData);
-    
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-bancario', 1);
-
-    console.log(flowManager.data.getDataForRequest("submitProposalToAnalyse"));
   },
 
   // ===== FUNÇÕES PARA FORMULÁRIO BANCÁRIO =====
@@ -3796,7 +3707,6 @@ const FormManager = {
   setupBancarioSubmission: function () {
     const bancarioCard = document.querySelector('[data-card-id="formulario-bancario"]');
     if (!bancarioCard) {
-      console.log('❌ Card de dados bancários não encontrado!');
       return;
     }
 
@@ -3877,7 +3787,6 @@ const FormManager = {
 
   // Processa submissão do card de dados bancários
   handleBancarioSubmission: function () {
-    console.log('🏦 Submetendo dados bancários...');
     
     const formData = this.collectBancarioData();
     
@@ -3901,13 +3810,6 @@ const FormManager = {
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateBankData(mappedData);
     
-    console.log('✅ Dados bancários atualizados:', mappedData);
-    
-    // Log dos dados completos do usuário
-    const userData = flowManager.data.getStateForDebug().userData;
-    console.log('🏦 Estado completo dos dados do usuário:', userData);
-    
-    console.log(flowManager.data.getDataForRequest("submitProposalToAnalyse"));
     // Navega para o próximo card (upload de imagens)
     flowManager.ui.transitionBetweenCards('upload-imagens', 1);
   },
@@ -3927,7 +3829,6 @@ class FlowValidator {
   // Valida resultado da simulação
   validateSimulation(simulationResult) {
     if (!simulationResult.success) {
-      console.log('🔍 Proposta inválida:', simulationResult);      
       const hasOpenProposal = flowManager.api.checkError(simulationResult, 'proposta em andamento'); // Proposta já existe
       if (hasOpenProposal) {
         return {
@@ -4073,8 +3974,6 @@ class UIManager {
     const animation = { targetCardId, direction };
     this.pendingAnimations.push(animation);
     
-    console.log(`📅 Animação agendada: ${targetCardId} (${this.pendingAnimations.length} na fila)`);
-    
     // Se não há animação em andamento, executa imediatamente
     if (!this.isAnimating) {
       this.processNextAnimation();
@@ -4090,8 +3989,6 @@ class UIManager {
 
     const animation = this.pendingAnimations.shift();
     this.isAnimating = true;
-    
-    console.log(`🎬 Executando animação agendada: ${animation.targetCardId}`);
     
     this.executeCardTransition(animation.targetCardId, animation.direction);
   }
@@ -4160,7 +4057,6 @@ class UIManager {
   // Limpa a fila de animações pendentes
   clearPendingAnimations() {
     this.pendingAnimations = [];
-    console.log('🧹 Fila de animações limpa');
   }
 
   // Força uma transição imediata (ignora fila)
@@ -4182,7 +4078,6 @@ class UIManager {
   // Método de debug para verificar status das animações
   debugAnimationQueue() {
     const status = this.getAnimationQueueStatus();
-    console.log('🔍 Status da fila de animações:', status);
     return status;
   }
 
@@ -4273,8 +4168,6 @@ class UIManager {
       if (parcelasElement) {
         parcelasElement.textContent = `${userSelections.plano}x de R$ ${Utils.formatCurrency(userSelections.prestacao)}`;
       }
-      
-      console.log('📋 Card de resumo populado:', userSelections);
     }
   }
 
@@ -4489,7 +4382,6 @@ class FlowNavigator {
 
   // Função para navegar (será implementada pela UI)
   navigate(targetCard) {
-    console.log('🧭 Navegando para card:', targetCard);
     // Aqui você implementaria a navegação real
     // Por exemplo: animateToCard(targetCard, 1);
   }
@@ -4515,7 +4407,6 @@ class FlowManager {
     }
 
     try {
-      console.log('🔄 Executando fluxo de ofertas e parcelas...');      
       // 1. Buscar ofertas
       const offersResult = await this.getOffers();
       await Utils.sleep(1000);
@@ -4535,8 +4426,6 @@ class FlowManager {
         };
       }
 
-      console.log('✅ Ofertas válidas, continuando fluxo...');
-
       // 2. Calcular data de vencimento
       const dueDateResult = await this.calculateDueDate();      
       
@@ -4546,34 +4435,6 @@ class FlowManager {
         flowManager.ui.transitionBetweenCards('erro-final', 1);
         return;
       }
-
-      // 3. Buscar valor máximo disponível    
-      // const { success, data: maxAvailableOfferResult } = await this.getMaxAvailableOffer();
-      // if (!success) {
-      //   retryManager.register(retryFns);
-      //   Utils.setErrorMessageToFinalErrorCard('Falha ao tentar buscar valor máximo disponível');
-      //   flowManager.ui.transitionBetweenCards('erro-final', 1);
-      //   return;
-      // }
-
-      // const maxAvailableOffer = maxAvailableOfferResult?.data?.valorLimiteSolicitado ?? 1500;
-      // this.filterAndUpdateValuesForOffer(maxAvailableOffer);
-
-      // // 4. Buscar parcelas
-      // const parcelsResult = await this.getParcels();
-      // if (!parcelsResult?.success) {
-      //   retryManager.register(retryFns);
-      //   Utils.setErrorMessageToFinalErrorCard('Falha ao tentar buscar parcelas');
-      //   flowManager.ui.transitionBetweenCards('erro-final', 1);
-      //   return;
-      // }
-
-      // console.log('✅ Fluxo de ofertas e parcelas concluído com sucesso!');
-      
-      // // Navega para ofertas (slider)
-      // this.ui.transitionBetweenCards(this.navigator.cards.OFFERS, 1);
-      // // Limpa o formulário principal
-      // Utils.limparFormularioPrincipal();
 
       SimulationStep.save(SimulationStep.OFFER);
       this.ui.transitionBetweenCards("dados-energia", 1);
@@ -4600,8 +4461,6 @@ class FlowManager {
     }
 
     try {
-      console.log('🔄 Executando validação dos dados da energia...');      
-      
       // Mostra loading específico para validação da energia
       this.ui.transitionBetweenCards('loading-energia', 1);
       this.ui.resetCardLoading('energia');
@@ -4628,8 +4487,6 @@ class FlowManager {
         return { success: false, error: 'Dados da energia inválidos' };
       }
 
-      console.log('✅ Dados da energia válidos, calculando condições...');
-
       // 2. Buscar valor máximo disponível (agora com dados validados)
       const { success, data: maxAvailableOfferResult } = await this.getMaxAvailableOffer();
       if (!success) {
@@ -4643,7 +4500,6 @@ class FlowManager {
       this.filterAndUpdateValuesForOffer(maxAvailableOffer);
 
       this.ui.animateCardLoading(2, 'energia');
-      console.log('✅ Condições calculadas, preparando ofertas...');
 
       // 3. Buscar parcelas
       const parcelsResult = await this.getParcels();
@@ -4654,8 +4510,6 @@ class FlowManager {
         return;
       }
 
-      console.log('✅ Fluxo de validação da energia concluído com sucesso!');
-      
       // 4. Navega para ofertas (slider)
       this.ui.transitionBetweenCards(this.navigator.cards.OFFERS, 1);
       // Limpa o formulário principal
@@ -4674,7 +4528,6 @@ class FlowManager {
 
   async validateEnergyData() {
     const data = this.data.getDataForRequest('validateEnergyData');
-    console.log('🔄 Validando dados da energia...', data);
     const { data: result, error } = await this.api.retry(
       () => this.api.validateEnergyData(data),
       3, // maxRetries
@@ -4714,8 +4567,6 @@ class FlowManager {
         };
       }
 
-      console.log('✅ Simulação aprovada, buscando ofertas...');
-
       // Salva o ID da proposta no localStorage quando aprovado
       const propostaId = this.data.getDataForRequest('getSimulation').propostaId;
       ProposalStorageManager.saveProposalId(propostaId);
@@ -4746,14 +4597,12 @@ class FlowManager {
       this.data.updateApiData({
         propostaId: result.data.propostaId,
       });
-      console.log('✅ Simulação criada:', result.data.propostaId);
     }
     
     return result ?? error;
   }
 
   async getOffers() {
-    console.log('🎯 Buscando ofertas...');
     const data = this.data.getDataForRequest('getOffer');
     const { success, data: result, error } = await this.api.retry(
       () => this.api.getOffer(data.offerId),
@@ -4766,14 +4615,12 @@ class FlowManager {
       // Extrai e atualiza dados das ofertas
       const extractedData = this.extractOfferData(result.data);
       this.data.updateApiData(extractedData);
-      console.log('✅ Ofertas obtidas', extractedData);      
     }
     
     return result ?? error;
   }
 
   async calculateDueDate() {
-    console.log('📅 Calculando data de vencimento...');
     const data = this.data.getDataForRequest('getDueDate');
     const { success, data: result, error } = await this.api.retry(
       () => this.api.getDueDate(data),
@@ -4786,14 +4633,12 @@ class FlowManager {
       this.data.updateApiData({
         vencimento: result.data[0].vencimento
       });
-      console.log('✅ Data de vencimento calculada:', result.data[0].vencimento);
     }
     
     return result ?? error;
   }
 
   async getMaxAvailableOffer() {
-    console.log('💰 Buscando valor máximo disponível...');
     const { propostaId , ...data } = this.data.getDataForRequest('maxAvailableOffer');
     const { success, data: result, error } = await this.api.retry(
       () => this.api.maxAvailableOffer(propostaId, data),
@@ -4806,8 +4651,6 @@ class FlowManager {
   }
 
   async getParcels() {
-    console.log('💰 Buscando parcelas...');
-    
     // Obtém os valores da tabela de juros
     const valores = this.data.getValuesForOffer();
     
@@ -4847,7 +4690,6 @@ class FlowManager {
 
     this.ui.setupDynamicSliders(parcelasCalculadas);
 
-    console.log('✅ Todas as parcelas foram calculadas e armazenadas');
     return { success: true };
   }
 
@@ -4858,7 +4700,6 @@ class FlowManager {
       if (!propostaId) {
         return { success: false, error: 'Nenhuma proposta válida encontrada' };
       }
-      console.log('🔄 Continuando fluxo a partir da proposta salva:', propostaId);
       
       // 1. Buscar dados da simulação salva
       this.ui.transitionBetweenCards("loading-continuar", 1);
@@ -4875,20 +4716,11 @@ class FlowManager {
         return { success: false, error: 'Nenhuma proposta válida encontrada' };
       }
 
-      // SEMPRE extrai e atualize os dados do usuário no DataManager
-      // const userData = Utils.extractUserDataFromSimulation(simulationData);
-      // this.data.updateUserData(userData);
-      // // Atualiza o estado com os dados da simulação
-      // this.data.updateApiData({ propostaId: propostaId });
-
-
       // Extrai e atualiza os dados da simulação no DataManager
       this.extractAndUpdateFromSimulation(simulationData);
 
-
       // 2. Verifica o status da simulação
       const status = simulationData.data.proposta.situacaoDescricao;
-      console.log('📊 Status da simulação:', status);
       
       switch (status) {
         case 'Seleção Oferta':
@@ -4972,7 +4804,6 @@ class FlowManager {
       
       // Gera campos dinâmicos se houver dados adicionais
       if (adicionaisApi && adicionaisApi.length > 0) {
-        console.log('🔧 Gerando campos dinâmicos com dados:', adicionaisApi);
         this.generateDynamicEnergyFields(adicionaisApi);
       } else {
         console.log('⚠️ Nenhum dado adicional encontrado para gerar campos dinâmicos');
@@ -5006,8 +4837,6 @@ class FlowManager {
       return false;
     }
 
-    console.log('🔧 Gerando campos dinâmicos com dados:', adicionaisData);
-    
     // Ordena os campos pela ordem definida na API
     const camposOrdenados = [...adicionaisData].sort((a, b) => a.ordem - b.ordem);
     
@@ -5446,13 +5275,9 @@ class FlowManager {
   // Continua fluxo quando status é "Aguard. Cadastro"
   async continueFromAguardCadastro() {
     try {
-      console.log('🔄 Executando fluxo para status "Aguard. Cadastro"...');
-
       // Para o status "Aguard. Cadastro", o usuário já selecionou uma oferta
       // e preencheu os dados da conta de energia, então vamos direto para o sucesso
-      
-      console.log('✅ Fluxo de continuação concluído - indo para sucesso!');
-      
+            
       // Navega para o card de sucesso (agendado automaticamente)
       this.ui.transitionBetweenCards('sucesso', 1);
       
@@ -5479,11 +5304,7 @@ class FlowManager {
   // Continua fluxo quando status é "Em análise"
   async continueFromEmAnalise() {
     try {
-      console.log('🔄 Executando fluxo para status "Em análise"...');
-
       // Para o status "Em análise", mostra o card específico
-      console.log('✅ Fluxo de continuação concluído - indo para em análise!');
-      
       // Navega para o card de em análise (agendado automaticamente)
       this.ui.transitionBetweenCards('em-analise', 1);
       
@@ -6267,7 +6088,7 @@ class ImgCiaViewer {
 
 function setupFlow() {
   // http://localhost:3000, https://api.crediconfiance.com.br
-  const apiManager = new ApiManager("https://api.crediconfiance.com.br", true); 
+  const apiManager = new ApiManager("https://api.crediconfiance.com.br", false); 
   const dataManager = new DataManager();
   const validator = new FlowValidator();
   const navigator = new FlowNavigator();
@@ -6282,7 +6103,6 @@ const imgCiaViewer = new ImgCiaViewer();
 
 // Inicialização automática ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Inicializando sistema...');
   FormManager.init();
   imgCiaViewer.init();
 
@@ -6303,5 +6123,3 @@ document.addEventListener('DOMContentLoaded', () => {
     flowManager.ui.showCardInstant('formulario');
   }
 });
-
-

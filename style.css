@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {  
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(120deg, var(--quaternary-color) 0%, var(--tertiary-color) 100%);
+  min-height: 100vh;
+}
 
 @property --btn-gradient-color1 {
   syntax: "<color>";
@@ -26,11 +31,6 @@
   --btn-gradient-color1: #5b6dfa;
   --btn-gradient-color2: #7f53ff;  
 }
-body {  
-  font-family: 'Inter', Arial, sans-serif;
-  background: linear-gradient(120deg, var(--quaternary-color) 0%, var(--tertiary-color) 100%);
-  min-height: 100vh;
-}
 
 .overlay-bg { 
   background: rgba(255,255,255,0.1);  
@@ -43,6 +43,7 @@ body {
   overflow-x: clip;
 }
 .card, .card.card-behind {
+  font-family: 'Inter', Arial, sans-serif;
   display: grid;
   grid-template-rows: auto 1fr auto;
   background: #fff;
@@ -58,12 +59,17 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
 }
-.card h2 {
+.card h2,
+.card-container .card h2,
+.overlay-bg .card h2 {
   font-size: 1.35rem;
   margin: 8px 0 32px 0;
-  color: #333333;
+  color: #333333;  
+  font-weight: 600;
+  line-height: 1.3;
+  font-family: 'Inter', Arial, sans-serif;
 }
-.card.card-behind {    
+.card.card-behind {
   background: #fff;
   opacity: 0.4;
   transform: rotate(-9deg) scale(0.97);
@@ -84,6 +90,10 @@ body {
   .card h2 {
     margin: 8px 0 16px 0;
   }
+}
+.card .button {
+  font-family: 'Inter', Arial, sans-serif;
+  border-radius: 10px !important;
 }
 .progress-bar {
   width: 100%;
@@ -117,11 +127,18 @@ body {
 .content {
   margin-top: 10px;
 }
-.question-label {
+.question-label,
+.card .question-label,
+.card-container .question-label,
+.overlay-bg .question-label {
   color: #a3a3a3;
   font-size: 0.85rem;
   font-weight: 600;
+  font-family: 'Inter', Arial, sans-serif;
   letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
 }
 .slider-group {
   margin-bottom: 28px;
@@ -270,7 +287,7 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
 }
-.actions {
+.card .actions {
   display: flex;
   justify-content: flex-end;
   gap: 16px;
@@ -278,34 +295,50 @@ body {
   margin-top: 0;
   padding-top: 0;
 }
-.back-btn {
+.card .back-btn,
+.card-container .back-btn,
+.overlay-bg .back-btn,
+.card .actions .back-btn {
   background: none;
   border: none;
   color: #a3a3a3;
   font-size: 1rem;
   font-weight: 600;
+  font-family: 'Inter', Arial, sans-serif;
   cursor: pointer;
   padding: 8px 18px;
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
 }
-.back-btn:hover {
+.card .back-btn:hover {
   background: #f3f4f6;
   color: #5b6dfa;
 }
-.next-btn {
+.card .next-btn,
+.card-container .next-btn,
+.overlay-bg .next-btn,
+.card .actions .next-btn {
   background: linear-gradient(90deg, var(--btn-gradient-color1), var(--btn-gradient-color2));
   transition: --btn-gradient-color1 500ms, --btn-gradient-color2 500ms, box-shadow 350ms;
   color: #fff;
   border: none;
   font-size: 1rem;
   font-weight: 600;
+  font-family: 'Inter', Arial, sans-serif;
   padding: 10px 32px;
-  border-radius: 10px;
+  border-radius: 10px !important;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(91,109,250,0.10);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
 }
-.next-btn:hover {
+.card .next-btn:hover {
   --btn-gradient-color1: #7f53ff;
   --btn-gradient-color2: #5b6dfa;
   box-shadow: 0 0 0 3px rgba(99, 103, 251, 0.3);
@@ -386,39 +419,56 @@ body {
   transition: all 0.5s cubic-bezier(.4,1.6,.6,1);
 }
 
-.form-container {
+.card .form-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.form-groups-row {
+.card .form-groups-row {
   display: flex;
   flex-direction: row;
   gap: 16px;
 }
-.form-group {
+.card .form-group {
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: 100%;
   align-self: flex-start;
 }
-.form-group input {
+.card .form-group input,
+.card-container .form-group input,
+.overlay-bg .form-group input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: inherit;
+  border-radius: 5px !important;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1rem;
+  background: #fff;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s ease;
+  line-height: 1;
 }
-.form-group label {
+.card input[type=range] {
+  border: none !important;
+}
+.card .form-group label,
+.card-container .form-group label,
+.overlay-bg .form-group label {
   font-size: 14px;
   font-weight: 600;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
 }
-.form-group input.error {
+.card .form-group input.error {
   border-color: #ef4444;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
-.form-group .error-message {
+.card .form-group .error-message {
   color: #ef4444;
   font-size: 12px;
 }
@@ -669,8 +719,8 @@ body {
 .result-info h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 8px;
   color: #1f2937;
+  margin: 0 0 2px 0;
 }
 
 .result-value {
@@ -690,6 +740,7 @@ body {
   font-size: 0.95rem;
   color: #6b7280;
   line-height: 1.4;
+  margin: 0;
 }
 
 .result-actions {
@@ -698,41 +749,40 @@ body {
   gap: 12px;
 }
 
-.primary-btn {
+.card .primary-btn {
   background: linear-gradient(90deg, var(--btn-gradient-color1) 0%, var(--btn-gradient-color2) 100%);
   color: white;
   border: none;
   padding: 14px 24px;
-  border-radius: 10px;
+  border-radius: 10px !important;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  /* transition: all 0.2s; */
   transition: --btn-gradient-color1 500ms, --btn-gradient-color2 500ms, box-shadow 350ms;
   box-shadow: 0 2px 8px rgba(91,109,250,0.15);
+  font-family: 'Inter', Arial, sans-serif;
 }
 
-.primary-btn:hover {
-  /* transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(91,109,250,0.25); */
+.card .primary-btn:hover {
   --btn-gradient-color1: #7f53ff;
   --btn-gradient-color2: #5b6dfa;
   box-shadow: 0 0 0 3px rgba(99, 103, 251, 0.3);
 }
 
-.secondary-btn {
+.card .secondary-btn {
   background: transparent;
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
   padding: 12px 24px;
-  border-radius: 10px;
+  border-radius: 10px !important;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  font-family: 'Inter', Arial, sans-serif;
 }
 
-.secondary-btn:hover {
+.card .secondary-btn:hover {
   background: var(--primary-color);
   color: white;
 }
@@ -825,45 +875,45 @@ body {
   display: none;
 }
 
-.form-group input + .success-message {
+.card .form-group input + .success-message {
   display: block;
 }
 
-.form-group select:invalid,
-.form-group select:invalid:focus {
+.card .form-group select:invalid,
+.card .form-group select:invalid:focus {
   border-color: #f59e0b;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
 /* Estados do campo CEP */
-.form-group input.cep-loading {
+.card .form-group input.cep-loading {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 11-6.219-8.56'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 20px;
 }
 
-.form-group input.cep-success {
+.card .form-group input.cep-success {
   border-color: var(--success-color);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
 
 /* Estilos para campos dinâmicos */
-.form-group[data-convenio-dados-id] {
+.card .form-group[data-convenio-dados-id] {
   animation: fadeInUp 0.3s ease-out;
 }
 
-.form-group[data-convenio-dados-id] input {
+.card .form-group[data-convenio-dados-id] input {
   transition: all 0.2s ease;
 }
 
-.form-group[data-convenio-dados-id] input:focus {
+.card .form-group[data-convenio-dados-id] input:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(91, 109, 250, 0.1);
 }
 
 /* Melhorias nas mensagens de erro */
-.form-group .error-message {
+.card .form-group .error-message {
   color: #dc2626;
   font-size: 0.75rem;
   margin-top: 4px;
@@ -871,12 +921,12 @@ body {
   animation: fadeIn 0.2s ease-out;
 }
 
-.form-group input.error {
+.card .form-group input.error {
   border-color: #dc2626;
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
-.form-group input.error:focus {
+.card .form-group input.error:focus {
   border-color: #dc2626;
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
 }
@@ -903,21 +953,21 @@ body {
 }
 
 /* Estilo para indicar campos obrigatórios */
-.form-group[data-convenio-dados-id] label::after {
+.card .form-group[data-convenio-dados-id] label::after {
   content: " *";
   color: #dc2626;
   font-weight: 600;
 }
 
 /* Estilo para campos com formato válido */
-.form-group input.valid {
+.card .form-group input.valid {
   border-color: var(--success-color);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
 
 /* Responsividade para campos dinâmicos */
 @media (max-width: 480px) {
-  .form-group[data-convenio-dados-id] input {
+  .card .form-group[data-convenio-dados-id] input {
     font-size: 14px;
   }
 }
@@ -1070,9 +1120,9 @@ body {
 }
 .upload-preview-img {
   width: 100%;
-  height: 100%;
+  height: 100% !important;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 10px !important;
   display: block;
 }
 .upload-info-area {
@@ -1097,7 +1147,7 @@ body {
   margin-top: 2px;
 }
 .upload-remove-btn {
-  background: #ef4444;
+  background: #ef4444 !important;
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -1113,6 +1163,7 @@ body {
   z-index: 2;
   transition: background 0.2s;
   margin-left: 8px;
+  padding: 0 !important;
 }
 .upload-remove-btn:hover {
   background: #dc2626;
@@ -1332,7 +1383,7 @@ body {
 }
 
 .bottom-sheet-close-btn {
-  background: none;
+  background: none !important;
   border: none;
   cursor: pointer;
   border-radius: 50%;
@@ -1354,9 +1405,9 @@ body {
   display: block;
   background: #f4f7ff;
   color: #2a3b8f;
-  border-left: 4px solid #6c63ff;
+  border-left: 4px solid var(--primary-color);
   border-radius: 6px;
-  padding: 8px 12px;
+  padding: 8px;
   margin-top: -10px;
   font-size: 0.80rem;
   font-weight: 500;

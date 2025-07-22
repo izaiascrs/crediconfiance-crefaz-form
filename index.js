@@ -2398,6 +2398,8 @@ const FormManager = {
   },
 
   handleFalarComConsultor: function () {
+    // abrir whatsapp
+    // window.open('https://wa.me/5511999999999', '_blank');
     
     // Navega para o card finalizar-parcial
     flowManager.ui.transitionBetweenCards('formulario', 1);
@@ -6088,7 +6090,7 @@ class ImgCiaViewer {
 
 function setupFlow() {
   // http://localhost:3000, https://api.crediconfiance.com.br
-  const apiManager = new ApiManager("https://api.crediconfiance.com.br", true); 
+  const apiManager = new ApiManager("https://api.crediconfiance.com.br", false); 
   const dataManager = new DataManager();
   const validator = new FlowValidator();
   const navigator = new FlowNavigator();

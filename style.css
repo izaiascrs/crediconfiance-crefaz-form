@@ -1452,8 +1452,8 @@ body {
   display: none;
 }
 
-.img-cia-dialog:has(.zoomed) .img-cia-zoom-out-icon  {
-  display: block;
+.img-cia-dialog:has(.zoomed) #btn-zoom .img-cia-zoom-out-icon  {
+  display: block !important;
 }
 
 .img-cia-toolbar {
@@ -1484,6 +1484,7 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   transition: background 0.2s;
   font-size: 1.2rem;
+  padding: 0;
 }
 .img-cia-toolbar button:hover {
   background: #f0f0f0;
@@ -1502,7 +1503,7 @@ body {
 .img-cia-zoom-in-icon {
   display: block;
 }
-.img-cia-zoom-out-icon {
+#btn-zoom .img-cia-zoom-out-icon {
   display: none;
 }
 

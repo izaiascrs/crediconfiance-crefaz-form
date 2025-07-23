@@ -2400,7 +2400,7 @@ const FormManager = {
   },
 
   handleBackFromReprovado: function () {
-    
+    ProposalStorageManager.clearProposalId();
     Utils.limparFormularioPrincipal();
     this.clearFormState();
     // Volta para o formulário
@@ -2408,7 +2408,6 @@ const FormManager = {
   },
 
   handleBackFromEmAnalise: function () {
-    
     // Remove a proposta do localStorage e volta para o formulário
     ProposalStorageManager.clearProposalId();
     Utils.limparFormularioPrincipal();
@@ -2429,7 +2428,7 @@ const FormManager = {
     ProposalStorageManager.clearProposalId();
     
     // Navega para o card finalizar-parcial
-    flowManager.ui.transitionBetweenCards('formulario', 1);
+    // flowManager.ui.transitionBetweenCards('formulario', 1);
   },
 
   handleBackFromSucesso: function () {

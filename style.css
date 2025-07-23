@@ -444,12 +444,16 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px !important;
   font-family: 'Inter', Arial, sans-serif;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   background: #fff;
   color: #333;
   outline: none;
   transition: border-color 0.2s ease;
   line-height: 1;
+}
+.card .form-group input::placeholder {
+  font-weight: 400;
 }
 .card input[type=range] {
   border: none !important;
@@ -1173,7 +1177,7 @@ body {
     max-width: 100%;
   }
   .upload-file-name {
-    max-width: 110px;
+    max-width: 150px !important;
   }
   .upload-box {
     width: 56px;

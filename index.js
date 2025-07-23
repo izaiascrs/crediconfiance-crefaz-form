@@ -251,7 +251,7 @@ class DataManager {
     nacionalidadeId: 1,
     naturalidadeUfId: '',
     naturalidadeCidadeId: '',
-    grauInstrucaoId: 3,
+    grauInstrucaoId: 4,
     nomeMae: '',
     nomeConjuge: '',
     pep: false,
@@ -841,6 +841,8 @@ const Utils = {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
+    const checkBox = document.getElementById("checkbox-titular");
+    if (checkBox) checkBox.checked = false;
   },
 
   limparFormularioFinal() {
@@ -1058,18 +1060,6 @@ const FormValidator = {
         pattern: "Nome deve conter apenas letras",
       },
     },
-    "grau-instrucao": {
-      required: true,
-      messages: {
-        required: "Escolaridade é obrigatória",
-      },
-    },
-    "estado-civil": {
-      required: true,
-      messages: {
-        required: "Estado civil é obrigatório",
-      },
-    },
     "nome-conjuge": {
       required: false, // Campo opcional por padrão
       minLength: 3,
@@ -1260,22 +1250,10 @@ const FormValidator = {
         pattern: "Número da conta deve conter apenas números",
       },
     },
-    "conta-bancario": {
-      required: true,
-      messages: {
-        required: "Tipo de conta é obrigatório",
-      },
-    },
     "tipo-conta-bancario": {
       required: true,
       messages: {
         required: "Tipo de conta é obrigatório",
-      },
-    },
-    "tempo-conta-bancario": {
-      required: true,
-      messages: {
-        required: "Tempo de conta é obrigatório",
       },
     },
   },
@@ -2298,7 +2276,6 @@ const FormManager = {
         finalizarBtn.addEventListener("click", (e) => {
           e.preventDefault();
           this.handleBackFromFinalizar();
-          Utils.limparFormularioFinal();
         });
       }
     }
@@ -2355,7 +2332,6 @@ const FormManager = {
         obrigadoBtn.addEventListener("click", (e) => {
           e.preventDefault();
           this.handleBackFromObrigado();
-          Utils.limparFormularioFinal();
         });
       }
     }
@@ -2455,6 +2431,10 @@ const FormManager = {
   },
 
   handleBackFromFinalizar: function () {
+    // limpar formulario final
+    Utils.limparFormularioFinal();
+    this.clearFormState();
+    ProposalStorageManager.clearProposalId();
     
     // Volta para o formulário
     flowManager.ui.transitionBetweenCards('formulario', -1);
@@ -2494,17 +2474,21 @@ const FormManager = {
   },
 
   handleBackFromObrigado: function () {
+    // limpar proposal
+    Utils.limparFormularioFinal();
+    this.clearFormState();
+    ProposalStorageManager.clearProposalId();
     
     // Volta para o formulário
     flowManager.ui.transitionBetweenCards('formulario', -1);
   },
 
   handleFinalizarVazio: function () {
-    
     // Volta para o formulário
     Utils.limparFormularioPrincipal();
     this.clearFormState();
     ProposalStorageManager.clearProposalId();
+
     flowManager.ui.transitionBetweenCards('formulario', 1);
   },
 
@@ -2514,6 +2498,7 @@ const FormManager = {
     Utils.limparFormularioPrincipal();
     this.clearFormState();
     ProposalStorageManager.clearProposalId();
+
     flowManager.ui.transitionBetweenCards('formulario', 1);
   },
 
@@ -2566,6 +2551,10 @@ const FormManager = {
   },
 
   handleVoltarFormularioEnergia: function () {
+    // limpar formulario
+    Utils.limparFormularioPrincipal();
+    this.clearFormState();
+    ProposalStorageManager.clearProposalId();
     
     // Volta para o formulário principal
     flowManager.ui.transitionBetweenCards('formulario', 1);
@@ -3088,7 +3077,7 @@ const FormManager = {
 
   // Configura validação dos campos de dados pessoais
   setupDadosPessoaisValidation: function () {
-    const fields = ["nome-completo", "sexo", "nome-mae", "grau-instrucao", "estado-civil", "nome-conjuge"];
+    const fields = ["nome-completo", "sexo", "nome-mae", "nome-conjuge"];
 
     fields.forEach((fieldName) => {
       const input = document.getElementById(fieldName);
@@ -3159,7 +3148,7 @@ const FormManager = {
   // Coleta dados do formulário de dados pessoais
   collectDadosPessoaisData: function () {
     const formData = {};
-    const fields = ["nome-completo", "sexo", "nome-mae", "grau-instrucao", "estado-civil", "nome-conjuge"];
+    const fields = ["nome-completo", "sexo", "nome-mae", "nome-conjuge"];
 
     fields.forEach((fieldName) => {
       const input = document.getElementById(fieldName);
@@ -3187,16 +3176,16 @@ const FormManager = {
       nome: formData['nome-completo'],
       sexo: parseInt(formData.sexo) || 0,
       nomeMae: formData['nome-mae'],
-      grauInstrucaoId: parseInt(formData['grau-instrucao']) || 3,
-      estadoCivil: parseInt(formData['estado-civil']) || 0,
+      grauInstrucaoId: 4,
+      estadoCivil: 0,
       nomeConjuge: formData['nome-conjuge'] || "null"
     };
-    
+       
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateDadosPessoais(mappedData);
     
-    // Log dos dados completos do usuário
-    const userData = flowManager.data.getStateForDebug().userData;
+    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
+    console.log('data', data);
     
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-rg-naturalidade', 1);
@@ -3502,9 +3491,13 @@ const FormManager = {
       naturalidadeUfId: parseInt(formData['naturalidade-uf']) || 0,
       naturalidadeCidadeId: parseInt(formData['naturalidade-cidade']) || 0
     };
-    
+
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateRGData(mappedData);
+
+    // Log dos dados completos do usuário
+    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
+    console.log('data', data);
         
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-endereco', 1);
@@ -3742,6 +3735,10 @@ const FormManager = {
     
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateAddressFromForm(mappedData);
+
+    // Log dos dados completos do usuário
+    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
+    console.log('data', data);
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-bancario', 1);
   },
@@ -3774,7 +3771,7 @@ const FormManager = {
 
   // Configura validação dos campos bancários
   setupBancarioValidation: function () {
-    const fields = ["banco-id", "agencia-bancario", "digito-bancario", "numero-bancario", "conta-bancario", "tipo-conta-bancario", "tempo-conta-bancario"];
+    const fields = ["banco-id", "agencia-bancario", "digito-bancario", "numero-bancario", "tipo-conta-bancario"];
 
     fields.forEach((fieldName) => {
       const input = document.getElementById(fieldName);
@@ -3818,7 +3815,7 @@ const FormManager = {
   // Coleta dados do formulário bancário
   collectBancarioData: function () {
     const formData = {};
-    const fields = ["banco-id", "agencia-bancario", "digito-bancario", "numero-bancario", "conta-bancario", "tipo-conta-bancario", "tempo-conta-bancario"];
+    const fields = ["banco-id", "agencia-bancario", "digito-bancario", "numero-bancario", "tipo-conta-bancario"];
 
     fields.forEach((fieldName) => {
       const input = document.getElementById(fieldName);
@@ -3847,13 +3844,16 @@ const FormManager = {
       agencia: formData['agencia-bancario'],
       digito: formData['digito-bancario'],
       numeroConta: formData['numero-bancario'],
-      conta: parseInt(formData['conta-bancario']) || 1,
+      conta: 1,
       tipoConta: parseInt(formData['tipo-conta-bancario']) || 0,
-      tempoConta: parseInt(formData['tempo-conta-bancario']) || 1
+      tempoConta: 1
     };
-    
+
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateBankData(mappedData);
+
+    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
+    console.log('data', data);    
     
     // Navega para o próximo card (upload de imagens)
     flowManager.ui.transitionBetweenCards('upload-imagens', 1);
@@ -4750,8 +4750,6 @@ class FlowManager {
     });
     formData.append('aprovado', isApproved ? 'SIM' : 'NÃO');
 
-    console.log('🔍 FormData:', formData);
-    
     await this.api.retry(
       () => this.api.saveDataToSheet(formData),
       1, // maxRetries

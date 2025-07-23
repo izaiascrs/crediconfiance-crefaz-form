@@ -2418,7 +2418,15 @@ const FormManager = {
 
   handleFalarComConsultor: function () {
     // abrir whatsapp
-    // window.open('https://wa.me/5511999999999', '_blank');
+    const whatsappUrl = document.querySelector('span[data-wts-url]')?.getAttribute('data-wts-url');
+    if (whatsappUrl) {
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // limpar formulario
+    Utils.limparFormularioPrincipal();
+    this.clearFormState();
+    ProposalStorageManager.clearProposalId();
     
     // Navega para o card finalizar-parcial
     flowManager.ui.transitionBetweenCards('formulario', 1);
@@ -3183,10 +3191,7 @@ const FormManager = {
        
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateDadosPessoais(mappedData);
-    
-    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
-    console.log('data', data);
-    
+        
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-rg-naturalidade', 1);
   },
@@ -3495,10 +3500,6 @@ const FormManager = {
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateRGData(mappedData);
 
-    // Log dos dados completos do usuário
-    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
-    console.log('data', data);
-        
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-endereco', 1);
   },
@@ -3736,9 +3737,6 @@ const FormManager = {
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateAddressFromForm(mappedData);
 
-    // Log dos dados completos do usuário
-    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
-    console.log('data', data);
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-bancario', 1);
   },
@@ -3851,9 +3849,6 @@ const FormManager = {
 
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateBankData(mappedData);
-
-    const data = flowManager.data.getDataForRequest('submitProposalToAnalyse');
-    console.log('data', data);    
     
     // Navega para o próximo card (upload de imagens)
     flowManager.ui.transitionBetweenCards('upload-imagens', 1);

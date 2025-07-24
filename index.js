@@ -2846,8 +2846,6 @@ const FormManager = {
       const result = await flowManager.api.retry(
         () => flowManager.api.updateProposal(data)        
       );
-
-      console.log('result', result);
       
       // Anima o próximo passo do loading
       flowManager.ui.animateCardLoading(1, 'salvar');
@@ -2861,6 +2859,28 @@ const FormManager = {
 
         // Lista os tipos de documentos
         await flowManager.listDocumentTypes();
+
+        // get Proposal by id
+        const id = flowManager.data.getDataForRequest('getSimulation').propostaId;
+        const { success, data: simulationData } = await flowManager.api.retry(
+          () => flowManager.api.getSimulation(id),
+          3, // maxRetries
+          2000, // delay inicial
+          2 // backoff
+        );
+        
+        if(success) {
+          const proposta = simulationData.data.proposta;
+          const addressData = {
+            cep: proposta.endereco.cep,
+            logradouro: proposta.endereco.logradouro,
+            numero: proposta.endereco.numero,
+            bairro: proposta.endereco.bairro,
+            complemento: proposta.endereco.complemento || "null",
+            cidadeId: proposta.endereco.cidadeId
+          };
+          flowManager.data.updateAddressData(addressData);
+        }
         
         // Navega para o card de sucesso (agendado automaticamente)
         flowManager.ui.transitionBetweenCards('sucesso', 1);
@@ -2957,7 +2977,6 @@ const FormManager = {
   // Executa o processo final de upload e envio da proposta
   async executeFinalSubmission() {
     try {
-      
       // Mostra o card de loading final
       flowManager.ui.transitionBetweenCards('loading-final', 1);
       flowManager.ui.resetCardLoading('final');
@@ -5344,10 +5363,12 @@ class FlowManager {
       const status = simulationData.data.proposta.situacaoDescricao;
       if(!status) return;
 
-      if(status !== 'Aguard. Cadastro' && status !== 'Cancelada' && status !== 'Seleção Oferta') {
+      const allowedStatuses = ['Aguard. Cadastro', 'Cancelada', 'Seleção Oferta'];
+
+      if(!allowedStatuses.includes(status)) {
         return;
       }
-            
+
       const proposta = simulationData.data.proposta;
       // 1. Atualiza dados básicos da API (propostaId, produtoId, etc.)
       const apiData = {

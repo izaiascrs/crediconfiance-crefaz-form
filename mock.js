@@ -765,6 +765,37 @@ const mockValidateEneryDataResponse = {
   },
 };
 
+const mockDocumentTypesResponse = {
+  success: true,
+  data: [
+    {
+      id: 1,
+      produtoId: 6,
+      nome: "DOCUMENTO DE IDENTIFICAÇÃO",
+      tipoModalidade: 0,
+      tipoRenda: null,
+      obrigatorio: true,
+    },
+    {
+      id: 30,
+      produtoId: 6,
+      nome: "FATURA DE ENERGIA",
+      tipoModalidade: 0,
+      tipoRenda: null,
+      obrigatorio: true,
+    },
+    {
+      id: 32,
+      produtoId: 6,
+      nome: "OUTROS",
+      tipoModalidade: 0,
+      tipoRenda: null,
+      obrigatorio: false,
+    },
+  ],
+  errors: null,
+};
+
 export {
   mockSimulationResponse,
   mockGetOfferResponse,
@@ -780,4 +811,5 @@ export {
   mockSearchByCpfResponse,
   mockMaxAvailableOfferResponse,
   mockValidateEneryDataResponse,
+  mockDocumentTypesResponse,
 };

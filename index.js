@@ -11,6 +11,7 @@ import {
   mockSearchByCpfResponse,
   mockMaxAvailableOfferResponse,
   mockValidateEneryDataResponse,
+  mockDocumentTypesResponse,
 } from "./mock.js";
 
 // import gsap from cdn
@@ -45,7 +46,8 @@ class ApiManager {
     submitProposal: "/api/conta-luz/v2/proposal/analyze",
     searchByCpf: "/api/conta-luz/v2/proposal/search-by-cpf",
     validateEnergyData: "/api/conta-luz/v2/proposal/energy/validate",
-    saveDataToSheet: "/api/conta-luz/v2/image/upload"
+    saveDataToSheet: "/api/conta-luz/v2/image/upload",
+    listDocumentTypes: "/api/conta-luz/v2/document/types"
   }
 
   fetchOptions = {
@@ -164,6 +166,12 @@ class ApiManager {
     if (this.useMock) return { ok: true };
     const url = this.apiUrl + this.endpoint.saveDataToSheet;
     return this.fetchData(url, this.fetchOptions.formData(form));
+  }
+
+  listDocumentTypes(data) {
+    if (this.useMock) return { success: true, data: mockDocumentTypesResponse ?? {} };
+    const url = this.apiUrl + this.endpoint.listDocumentTypes;
+    return this.fetchData(url, this.fetchOptions.post(data));
   }
 
   fetchData = async (url, options = {}) => {
@@ -373,6 +381,10 @@ class DataManager {
     this.#userAdditionalData = { ...this.#userAdditionalData, ...data }
   }
 
+  updateDocumentIds(data) {
+    this.#documentIds = { ...this.#documentIds, ...data }
+  }
+
   // Atualiza seleções do usuário quando uma oferta é selecionada
   updateUserLoanSelection(loanData) {
     this.#userSelections = { 
@@ -562,18 +574,25 @@ class DataManager {
           }
         }
 
+      case 'listDocumentTypes':
+        return {
+          propostaId: this.#apiData.propostaId,
+          tipoModalidade: 2,
+          tipoRenda: 0
+        }
+
       case 'saveDataToSheet':
         return {
-            nome: this.#userData.nome,
-            cpf: DataNormalizer.formatCPFToBrazilian(this.#userData.cpf),
-            "nascimento": DataNormalizer.normalizeDateToBrazilian(this.#userData.nascimento),
-            "data-de-nascimento": DataNormalizer.normalizeDateToBrazilian(this.#userData.nascimento),
-            whatsApp: DataNormalizer.formatPhoneToBrazilian(this.#userData.telefone), // (xx) xxxxx-xxxx
-            cep: this.#userData.cep,
-            cidade: this.#userData.cidade,
-            estado: this.#userData.estado,
-            companhia: this.#cia.nome || "N/A",
-            valor: this.#userSelections.valor,            
+          nome: this.#userData.nome,
+          cpf: DataNormalizer.formatCPFToBrazilian(this.#userData.cpf),
+          "nascimento": DataNormalizer.normalizeDateToBrazilian(this.#userData.nascimento),
+          "data-de-nascimento": DataNormalizer.normalizeDateToBrazilian(this.#userData.nascimento),
+          whatsApp: DataNormalizer.formatPhoneToBrazilian(this.#userData.telefone), // (xx) xxxxx-xxxx
+          cep: this.#userData.cep,
+          cidade: this.#userData.cidade,
+          estado: this.#userData.estado,
+          companhia: this.#cia.nome || "N/A",
+          valor: this.#userSelections.valor,            
         }
     }
   }
@@ -593,7 +612,8 @@ class DataManager {
       userData: { ...this.#userData },
       userAdditionalData: { ...this.#userAdditionalData },
       apiData: { ...this.#apiData },
-      userSelections: { ...this.#userSelections }
+      userSelections: { ...this.#userSelections },
+      documentIds: { ...this.#documentIds }
     }
   }
 
@@ -1582,6 +1602,11 @@ const FormManager = {
 
   getDocumentUploaded: function () {
     return this.documentUploaded;
+  },
+
+  clearDocumentUploaded: function () {
+    this.documentUploaded = false;
+    sessionStorage.removeItem('documentUploaded');
   },
 
   // Inicializa o formulário
@@ -2821,6 +2846,8 @@ const FormManager = {
       const result = await flowManager.api.retry(
         () => flowManager.api.updateProposal(data)        
       );
+
+      console.log('result', result);
       
       // Anima o próximo passo do loading
       flowManager.ui.animateCardLoading(1, 'salvar');
@@ -2831,6 +2858,9 @@ const FormManager = {
         // ProposalStorageManager.clearProposalId();
         // Anima o último passo do loading
         flowManager.ui.animateCardLoading(2, 'salvar');
+
+        // Lista os tipos de documentos
+        await flowManager.listDocumentTypes();
         
         // Navega para o card de sucesso (agendado automaticamente)
         flowManager.ui.transitionBetweenCards('sucesso', 1);
@@ -2956,6 +2986,9 @@ const FormManager = {
 
       flowManager.ui.animateCardLoading(2, 'final');
       
+      // esperar 2 segundos antes de enviar a proposta para análise para as imagens serem processadas
+      await Utils.sleep(2000);
+
       // Passo 3: Enviar proposta para análise
       const result = await this.submitProposalToAnalysis();
 
@@ -2982,6 +3015,9 @@ const FormManager = {
       // Navega para o card de sucesso após um breve delay
       await Utils.sleep(1000);
       flowManager.ui.transitionBetweenCards('obrigado', 1);
+
+      // Limpa o flag de documentos enviados
+      this.clearDocumentUploaded();
       
     } catch (error) {
       console.error('❌ Erro no processo final:', error);
@@ -3190,7 +3226,7 @@ const FormManager = {
        
     // Atualiza dados no DataManager usando a função específica
     flowManager.data.updateDadosPessoais(mappedData);
-        
+       
     // Navega para o próximo card
     flowManager.ui.transitionBetweenCards('formulario-rg-naturalidade', 1);
   },
@@ -4736,6 +4772,28 @@ class FlowManager {
     return { success: true };
   }
 
+  async listDocumentTypes() {
+    const data = this.data.getDataForRequest('listDocumentTypes');
+    const { success, data: result, error } = await this.api.retry(
+      () => this.api.listDocumentTypes(data),
+      3, // maxRetries
+      1000, // delay inicial
+      2 // backoff
+    );
+
+    if (success) {
+      const identificationDocument = result.data.find(doc => doc.nome === 'DOCUMENTO DE IDENTIFICAÇÃO');
+      const energyBillDocument = result.data.find(doc => doc.nome === 'FATURA DE ENERGIA');
+      this.data.updateDocumentIds({
+        idFrente: identificationDocument?.id,
+        idVerso: identificationDocument?.id,
+        contaLuz: energyBillDocument?.id
+      });
+    }
+
+    return result ?? error;
+  }
+
   async saveDataToSheet(isApproved = false) {
     const jsonData = this.data.getDataForRequest('saveDataToSheet');
     const formData = new FormData();
@@ -5338,6 +5396,9 @@ class FlowManager {
     try {
       // Para o status "Aguard. Cadastro", o usuário já selecionou uma oferta
       // e preencheu os dados da conta de energia, então vamos direto para o sucesso
+
+      // Lista os tipos de documentos
+      await this.listDocumentTypes();
             
       // Navega para o card de sucesso (agendado automaticamente)
       this.ui.transitionBetweenCards('sucesso', 1);
